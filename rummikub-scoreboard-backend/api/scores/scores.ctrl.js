@@ -6,7 +6,7 @@ const read = async (req, res, next) => {
     const { owner } = req.params;
     const score = await Score.findOne({ owner });
     if (!score) {
-      throw createError.NotFound(`${owner}'s score not found.`);
+      throw new createError.NotFound(`${owner}'s score not found.`);
     }
 
     res.json(score);
@@ -25,7 +25,9 @@ const update = async (req, res, next) => {
     );
 
     if (!prevScore) {
-      throw createError.InternalServerError(`Failed to save ${owner}'s score.`);
+      throw new createError.InternalServerError(
+        `Failed to save ${owner}'s score.`
+      );
     }
 
     res.json(Object.assign(prevScore, { score }));
