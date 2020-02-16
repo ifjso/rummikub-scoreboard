@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const historesRouter = require('./api/histories');
 
 dotenv.config();
@@ -30,5 +28,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(path.resolve(), 'public')));
 
 app.use('/histories', historesRouter);
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  console.log(err.name);
+  res.json({ code: 500, message: 'error' });
+});
 
 module.exports = app;
