@@ -25,9 +25,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/histories', historesRouter);
-app.use('/scores', scoresRouter);
-app.use('/users', usersRouter);
+const API_CONTEXT = process.env.API_CONTEXT;
+app.use(`${API_CONTEXT}/histories`, historesRouter);
+app.use(`${API_CONTEXT}/scores`, scoresRouter);
+app.use(`${API_CONTEXT}/users`, usersRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
