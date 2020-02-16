@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const historesRouter = require('./api/histories');
 const scoresRouter = require('./api/scores');
+const usersRouter = require('./api/users');
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/histories', historesRouter);
 app.use('/scores', scoresRouter);
+app.use('/users', usersRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
