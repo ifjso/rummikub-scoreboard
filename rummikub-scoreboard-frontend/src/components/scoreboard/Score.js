@@ -15,13 +15,13 @@ const ScoreBlock = styled.div`
   }
 `;
 
-const ProfileWrapper = styled.div`
+const ProfileBlock = styled.div`
   width: 100%;
   height: 30%;
   border: 1px solid;
 `;
 
-const Profile = () => <ProfileWrapper />;
+const Profile = () => <ProfileBlock />;
 
 const Score = () => (
   <ScoreBlock>
