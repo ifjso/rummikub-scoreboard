@@ -19,7 +19,7 @@ const Wrapper = styled(Responsive)`
   align-items: center;
   justify-content: space-between;
   border: solid 1px;
-  h2 {
+  span {
     margin: 0;
     font-size: 5rem;
   }
@@ -29,7 +29,9 @@ const ScoreBoard = () => (
   <ScoreBoardBlock>
     <Wrapper>
       <Score />
-      <h2>:</h2>
+      <span>
+        <b>:</b>
+      </span>
       <Score />
       {/* <HistoryList /> */}
       {/* <div className="board">
