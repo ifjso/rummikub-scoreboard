@@ -3,15 +3,20 @@ import styled from 'styled-components';
 import Responsive from '../common/Responsive';
 
 const ScoreBoardBlock = styled.div`
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Wrapper = styled(Responsive)`
-  height: 100vh;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: solid 1px;
   h1 {
     font-size: 3rem;
     line-height: 1.5;
