@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../commons/Responsive';
+import Score from './Score';
 
 const ScoreBoardBlock = styled.div`
   width: 100vw;
@@ -14,22 +15,23 @@ const ScoreBoardBlock = styled.div`
 const Wrapper = styled(Responsive)`
   height: 80vh;
   display: flex;
+  padding: 2rem;
   align-items: center;
   justify-content: space-between;
   border: solid 1px;
-  h1 {
-    font-size: 3rem;
-    line-height: 1.5;
+  h2 {
     margin: 0;
+    font-size: 4rem;
   }
 `;
 
 const ScoreBoard = () => (
   <ScoreBoardBlock>
     <Wrapper>
-      {/* <Score /> */}
+      <Score />
+      <h2>:</h2>
+      <Score />
       {/* <HistoryList /> */}
-
       {/* <div className="board">
         <h1>4</h1>
       </div>
