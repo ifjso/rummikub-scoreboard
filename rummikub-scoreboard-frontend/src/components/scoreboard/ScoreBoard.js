@@ -21,7 +21,7 @@ const Wrapper = styled(Responsive)`
   border: solid 1px;
   h2 {
     margin: 0;
-    font-size: 4rem;
+    font-size: 5rem;
   }
 `;
 

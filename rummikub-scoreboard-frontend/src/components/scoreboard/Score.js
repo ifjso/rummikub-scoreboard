@@ -2,21 +2,30 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ScoreBlock = styled.div`
-  width: 30%;
-  height: 30%;
-  padding: 1rem;
+  width: 34vw;
+  height: 34vw;
   border: 4px dashed #afafaf;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   h1 {
     margin: 0;
-    font-size: 10rem;
+    height: 70%;
+    font-size: 18vw;
   }
 `;
 
+const ProfileWrapper = styled.div`
+  width: 100%;
+  height: 30%;
+  border: 1px solid;
+`;
+
+const Profile = () => <ProfileWrapper />;
+
 const Score = () => (
   <ScoreBlock>
+    <Profile />
     <h1>99</h1>
   </ScoreBlock>
 );
