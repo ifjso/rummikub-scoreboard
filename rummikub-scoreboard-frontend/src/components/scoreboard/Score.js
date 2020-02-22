@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const ScoreBlock = styled.div`
   width: 34vw;
   height: 34vw;
-  border: 4px dashed #afafaf;
+  border: 1px dashed #afafaf;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,10 +18,26 @@ const ScoreBlock = styled.div`
 const ProfileBlock = styled.div`
   width: 100%;
   height: 30%;
-  border: 1px solid;
+  display: flex;
+  border-bottom: 1px dashed #afafaf;
+  .nickname {
+    margin: 0 auto;
+    font-size: 5vw;
+    padding: 2vw;
+  }
 `;
 
-const Profile = () => <ProfileBlock />;
+const Picture = styled.div`
+  width: 30%;
+  border-right: 1px dashed #afafaf;
+`;
+
+const Profile = () => (
+  <ProfileBlock>
+    <Picture />
+    <span className="nickname">디발</span>
+  </ProfileBlock>
+);
 
 const Score = () => (
   <ScoreBlock>
