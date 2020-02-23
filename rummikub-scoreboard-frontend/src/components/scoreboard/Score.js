@@ -64,8 +64,8 @@ const Score = ({ reversed = false }) => (
   <ScoreBlock>
     <Profile reversed={reversed} />
     <h1>99</h1>
-    <Button>+</Button>
     <Button>-</Button>
+    <Button>+</Button>
   </ScoreBlock>
 );
 

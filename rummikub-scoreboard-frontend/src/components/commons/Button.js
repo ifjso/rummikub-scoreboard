@@ -1,22 +1,36 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const StyledLink = styled(Link)``;
-
-const StyledButton = styled.button`
+const buttonStyle = css`
+  width: 50%;
   border: none;
   outline: none;
   font-size: 10vw;
   padding: 1.5vw;
   line-height: 7vw;
+  border-top: 1px dashed #afafaf;
   cursor: pointer;
-  width: 50%;
 
   background: white;
   &:hover {
-    background: grey;
+    background: #f1f1f1;
   }
+  &:active {
+    background: #cccccc;
+    color: #555555;
+  }
+  & + & {
+    border-left: 1px dashed #afafaf;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  ${buttonStyle}
+`;
+
+const StyledButton = styled.button`
+  ${buttonStyle}
 `;
 
 const Button = ({ to, ...rest }) =>
