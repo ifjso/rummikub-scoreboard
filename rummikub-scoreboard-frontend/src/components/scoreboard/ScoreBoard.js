@@ -18,7 +18,6 @@ const Wrapper = styled(Responsive)`
   padding: 2rem;
   align-items: center;
   justify-content: space-between;
-  border: solid 1px;
   span {
     margin: 0;
     font-size: 12vw;
