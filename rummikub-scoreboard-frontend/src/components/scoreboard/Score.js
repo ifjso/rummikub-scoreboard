@@ -55,31 +55,50 @@ const Picture = styled.div`
         `}
 `;
 
-const Profile = ({ reversed, picture, name }) => (
-  <ProfileBlock reversed={reversed}>
-    <Picture reversed={reversed} picture={picture} />
-    <span className="nickname">${name}</span>
-  </ProfileBlock>
-);
+const Profile = ({ reversed, owner }) => {
+  const [picture, setPicture] = useState('');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const readUserFunc = async () => {
+      const { data } = await readUser(owner);
+      setPicture(data.picture);
+      setName(data.name);
+    };
+
+    readUserFunc();
+  });
+
+  return (
+    <ProfileBlock reversed={reversed}>
+      <Picture reversed={reversed} picture={picture} />
+      <span className="nickname">{name}</span>
+    </ProfileBlock>
+  );
+};
 
 const Score = ({ reversed = false, owner }) => {
   const [score, setScore] = useState(0);
 
   useEffect(() => {
     const readScoreFunc = async () => {
-      const {
-        data: { score: currentScore }
-      } = await readScore(owner);
-      setScore(currentScore);
+      const { data } = await readScore(owner);
+      setScore(data.score);
     };
     readScoreFunc();
   }, [owner]);
+
+  const onClick = async newScore => {
+    await updateScore({ owner, score: newScore });
+    setScore(newScore);
+  };
+
   return (
     <ScoreBlock>
-      <Profile reversed={reversed} />
+      <Profile reversed={reversed} owner={owner} />
       <h1>{score}</h1>
-      <Button>-</Button>
-      <Button>+</Button>
+      <Button onClick={() => onClick(score - 1)}>-</Button>
+      <Button onClick={() => onClick(score + 1)}>+</Button>
     </ScoreBlock>
   );
 };
