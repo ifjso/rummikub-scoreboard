@@ -21,7 +21,7 @@ const Wrapper = styled(Responsive)`
   border: solid 1px;
   span {
     margin: 0;
-    font-size: 5rem;
+    font-size: 12vw;
   }
 `;
 
@@ -34,15 +34,6 @@ const ScoreBoard = () => (
       </span>
       <Score reversed />
       {/* <HistoryList /> */}
-      {/* <div className="board">
-        <h1>4</h1>
-      </div>
-      <div className="board">
-        <h1>vs</h1>
-      </div>
-      <div className="board">
-        <h1>5</h1>
-      </div> */}
     </Wrapper>
   </ScoreBoardBlock>
 );
