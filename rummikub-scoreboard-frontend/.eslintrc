@@ -7,6 +7,7 @@
     "implicit-arrow-linebreak": "off",
     "import/prefer-default-export": "off",
     "no-confusing-arrow": "off",
+    "object-curly-newline": "off",
     "operator-linebreak": "off",
     "prettier/prettier": ["error"],
     "react/jsx-filename-extension": "off",
