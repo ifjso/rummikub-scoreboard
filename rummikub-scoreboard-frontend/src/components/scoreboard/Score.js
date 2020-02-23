@@ -20,7 +20,7 @@ const ScoreBlock = styled.div`
     width: 100%;
     text-align: center;
     font-size: 18vw;
-    line-height: 21vw;
+    line-height: 19vw;
   }
 `;
 
