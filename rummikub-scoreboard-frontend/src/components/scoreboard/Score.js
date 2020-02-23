@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Button from '../commons/Button';
+import { readUser } from '../../lib/api/users';
+import { readScore, updateScore } from '../../lib/api/scores';
 
 const border = '1px dashed #afafaf';
 
@@ -53,20 +55,33 @@ const Picture = styled.div`
         `}
 `;
 
-const Profile = ({ reversed }) => (
+const Profile = ({ reversed, picture, name }) => (
   <ProfileBlock reversed={reversed}>
-    <Picture reversed={reversed} />
-    <span className="nickname">디발</span>
+    <Picture reversed={reversed} picture={picture} />
+    <span className="nickname">${name}</span>
   </ProfileBlock>
 );
 
-const Score = ({ reversed = false }) => (
-  <ScoreBlock>
-    <Profile reversed={reversed} />
-    <h1>99</h1>
-    <Button>-</Button>
-    <Button>+</Button>
-  </ScoreBlock>
-);
+const Score = ({ reversed = false, owner }) => {
+  const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    const readScoreFunc = async () => {
+      const {
+        data: { score: currentScore }
+      } = await readScore(owner);
+      setScore(currentScore);
+    };
+    readScoreFunc();
+  }, [owner]);
+  return (
+    <ScoreBlock>
+      <Profile reversed={reversed} />
+      <h1>{score}</h1>
+      <Button>-</Button>
+      <Button>+</Button>
+    </ScoreBlock>
+  );
+};
 
 export default Score;
