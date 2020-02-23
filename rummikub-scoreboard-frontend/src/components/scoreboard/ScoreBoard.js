@@ -28,11 +28,11 @@ const Wrapper = styled(Responsive)`
 const ScoreBoard = () => (
   <ScoreBoardBlock>
     <Wrapper>
-      <Score />
+      <Score reversed={false} />
       <span>
         <b>:</b>
       </span>
-      <Score />
+      <Score reversed />
       {/* <HistoryList /> */}
       {/* <div className="board">
         <h1>4</h1>
