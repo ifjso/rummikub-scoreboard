@@ -1,10 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import Button from '../commons/Button';
+
+const border = '1px dashed #afafaf';
 
 const ScoreBlock = styled.div`
   width: 34vw;
-  height: 34vw;
-  border: 1px dashed #afafaf;
+  height: 40vw;
+  border: ${border};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,30 +22,43 @@ const ProfileBlock = styled.div`
   width: 100%;
   height: 30%;
   display: flex;
-  border-bottom: 1px dashed #afafaf;
+  border-bottom: ${border};
   .nickname {
     margin: 0 auto;
     font-size: 5vw;
     padding: 2vw;
   }
+  ${({ reversed }) =>
+    reversed &&
+    css`
+      flex-direction: row-reverse;
+    `}
 `;
 
 const Picture = styled.div`
   width: 30%;
-  border-right: 1px dashed #afafaf;
+  ${({ reversed }) =>
+    reversed
+      ? css`
+          border-left: ${border};
+        `
+      : css`
+          border-right: ${border};
+        `}
 `;
 
-const Profile = () => (
-  <ProfileBlock>
-    <Picture />
+const Profile = ({ reversed }) => (
+  <ProfileBlock reversed={reversed}>
+    <Picture reversed={reversed} />
     <span className="nickname">디발</span>
   </ProfileBlock>
 );
 
-const Score = () => (
+const Score = ({ reversed = false }) => (
   <ScoreBlock>
-    <Profile />
+    <Profile reversed={reversed} />
     <h1>99</h1>
+    <Button>+</Button>
   </ScoreBlock>
 );
 
