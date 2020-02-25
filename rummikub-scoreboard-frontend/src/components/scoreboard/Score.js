@@ -4,12 +4,9 @@ import Button from '../commons/Button';
 import { readUser } from '../../lib/api/users';
 import { readScore, updateScore } from '../../lib/api/scores';
 
-const border = '1px dashed #afafaf';
-
 const ScoreBlock = styled.div`
   width: 34vw;
   height: 40vw;
-  border: ${border};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +27,6 @@ const ProfileBlock = styled.div`
   width: 100%;
   height: 24%;
   display: flex;
-  border-bottom: ${border};
   .nickname {
     margin: 0 auto;
     font-size: 6vw;
@@ -45,14 +41,6 @@ const ProfileBlock = styled.div`
 
 const Picture = styled.div`
   width: 28%;
-  ${({ reversed }) =>
-    reversed
-      ? css`
-          border-left: ${border};
-        `
-      : css`
-          border-right: ${border};
-        `}
 `;
 
 const Profile = ({ reversed, owner }) => {

@@ -9,7 +9,6 @@ const buttonStyle = css`
   font-size: 10vw;
   padding: 1.5vw;
   line-height: 7vw;
-  border-top: 1px dashed #afafaf;
   cursor: pointer;
 
   background: white;
@@ -19,9 +18,6 @@ const buttonStyle = css`
   &:active {
     background: #cccccc;
     color: #555555;
-  }
-  & + & {
-    border-left: 1px dashed #afafaf;
   }
 `;
 
