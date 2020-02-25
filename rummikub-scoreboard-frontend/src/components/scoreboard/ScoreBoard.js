@@ -44,10 +44,9 @@ const ScoreBoard = () => (
         <b>:</b>
       </span>
       <Score reversed owner={2} />
-      {/* <HistoryList /> */}
     </Wrapper>
     <Breaker />
-    <LinkButton to="https://www.naver.com">업데이트 로그</LinkButton>
+    <LinkButton to="/histories">업데이트 로그</LinkButton>
   </ScoreBoardBlock>
 );
 
