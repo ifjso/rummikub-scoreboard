@@ -31,8 +31,10 @@ const Breaker = styled.div`
   height: 0;
 `;
 
-const ButtonDe = styled(Button)`
-  font-size: 10px;
+const LinkButton = styled(Button)`
+  width: 24vw;
+  font-size: 3vw;
+  text-align: center;
 `;
 const ScoreBoard = () => (
   <ScoreBoardBlock>
@@ -45,7 +47,7 @@ const ScoreBoard = () => (
       {/* <HistoryList /> */}
     </Wrapper>
     <Breaker />
-    <ButtonDe>aa</ButtonDe>
+    <LinkButton to="https://www.naver.com">업데이트 로그</LinkButton>
   </ScoreBoardBlock>
 );
 
