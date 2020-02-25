@@ -2,18 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../commons/Responsive';
 import Score from './Score';
+import Button from '../commons/Button';
 
 const ScoreBoardBlock = styled.div`
   width: 100vw;
   height: 100vh;
   background: white;
   display: flex;
-  align-items: center;
+  align-content: center;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 
 const Wrapper = styled(Responsive)`
-  height: 80vh;
+  height: 46vh;
   display: flex;
   padding: 2rem;
   align-items: center;
@@ -24,6 +26,14 @@ const Wrapper = styled(Responsive)`
   }
 `;
 
+const Breaker = styled.div`
+  flex-basis: 100%;
+  height: 0;
+`;
+
+const ButtonDe = styled(Button)`
+  font-size: 10px;
+`;
 const ScoreBoard = () => (
   <ScoreBoardBlock>
     <Wrapper>
@@ -34,6 +44,8 @@ const ScoreBoard = () => (
       <Score reversed owner={2} />
       {/* <HistoryList /> */}
     </Wrapper>
+    <Breaker />
+    <ButtonDe>aa</ButtonDe>
   </ScoreBoardBlock>
 );
 
