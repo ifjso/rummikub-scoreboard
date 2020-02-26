@@ -1,7 +1,6 @@
 import React from 'react';
+import HistoryContainer from '../containers/HistoryContainer';
 
-const HistoryPage = () => (
-  <div>aegeagegaegaegaegaegagasgasgaegasegageasgasegasegaesgagsagsa</div>
-);
+const HistoryPage = () => <HistoryContainer />;
 
 export default HistoryPage;
