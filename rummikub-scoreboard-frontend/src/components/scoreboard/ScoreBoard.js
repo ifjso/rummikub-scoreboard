@@ -15,9 +15,10 @@ const ScoreBoardBlock = styled.div`
 `;
 
 const Wrapper = styled(Responsive)`
-  height: 46vh;
+  width: 86vw;
+  height: 56vw;
   display: flex;
-  padding: 2rem;
+  padding: 2vw;
   align-items: center;
   justify-content: space-between;
   span {
@@ -28,7 +29,7 @@ const Wrapper = styled(Responsive)`
 
 const Breaker = styled.div`
   flex-basis: 100%;
-  height: 0;
+  height: 1vw;
 `;
 
 const LinkButton = styled(Button)`
