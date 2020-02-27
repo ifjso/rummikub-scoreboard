@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import Button from '../commons/Button';
 import { readUser } from '../../lib/api/users';
@@ -46,15 +46,22 @@ const Picture = styled.div`
 const Profile = ({ reversed, owner }) => {
   const [picture, setPicture] = useState('');
   const [name, setName] = useState('');
+  const isCancelled = useRef(false);
 
   useEffect(() => {
     const readUserFunc = async () => {
       const { data } = await readUser(owner);
-      setPicture(data.picture);
-      setName(data.name);
+      if (!isCancelled.current) {
+        setPicture(data.picture);
+        setName(data.name);
+      }
     };
 
     readUserFunc();
+
+    return () => {
+      isCancelled.current = true;
+    };
   });
 
   return (
@@ -67,18 +74,29 @@ const Profile = ({ reversed, owner }) => {
 
 const Score = ({ reversed = false, owner }) => {
   const [score, setScore] = useState(0);
+  const isCancelled = useRef(false);
 
   useEffect(() => {
     const readScoreFunc = async () => {
       const { data } = await readScore(owner);
-      setScore(data.score);
+      if (!isCancelled.current) {
+        setScore(data.score);
+      }
     };
+
     readScoreFunc();
+
+    return () => {
+      isCancelled.current = true;
+    };
   }, [owner]);
 
   const onClick = async newScore => {
     await updateScore({ owner, score: newScore });
-    setScore(newScore);
+
+    if (!isCancelled.current) {
+      setScore(newScore);
+    }
   };
 
   return (
