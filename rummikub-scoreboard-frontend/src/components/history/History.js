@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Table } from 'semantic-ui-react';
+import moment from 'moment';
 import { listHistories } from '../../lib/api/histories';
 import Responsive from '../commons/Responsive';
 
@@ -37,17 +38,21 @@ const History = () => {
       <Table sortable celled unstackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>owner</Table.HeaderCell>
-            <Table.HeaderCell>value</Table.HeaderCell>
-            <Table.HeaderCell>createdAt</Table.HeaderCell>
+            <Table.HeaderCell>누가</Table.HeaderCell>
+            <Table.HeaderCell>무엇을</Table.HeaderCell>
+            <Table.HeaderCell>언제</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {histories.map(history => (
             <Table.Row key={history._id}>
               <Table.Cell>{history.owner}</Table.Cell>
-              <Table.Cell>{history.value}</Table.Cell>
-              <Table.Cell>{history.createdAt}</Table.Cell>
+              <Table.Cell>
+                {history.value >= 0 ? `+${history.value}` : `${history.value}`}
+              </Table.Cell>
+              <Table.Cell>
+                {moment(history.createdAt).format('YYYY-MM-DD HH:mm:ss.SSS')}
+              </Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -57,20 +62,3 @@ const History = () => {
 };
 
 export default History;
-
-// [
-//   {
-//       "_id": "5e493e5247be9f001835fc73",
-//       "owner": 1,
-//       "value": 1,
-//       "createdAt": 1581858386204,
-//       "__v": 0
-//   },
-//   {
-//       "_id": "5e48df4a867fd99c9f82b988",
-//       "owner": 1,
-//       "value": 1,
-//       "createdAt": 1581834058841,
-//       "__v": 0
-//   }
-// ]
