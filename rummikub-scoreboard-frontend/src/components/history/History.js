@@ -46,7 +46,7 @@ const History = () => {
         <Table.Body>
           {histories.map(history => (
             <Table.Row key={history._id}>
-              <Table.Cell>{history.owner}</Table.Cell>
+              <Table.Cell>{history.name}</Table.Cell>
               <Table.Cell>
                 {history.value >= 0 ? `+${history.value}` : `${history.value}`}
               </Table.Cell>
