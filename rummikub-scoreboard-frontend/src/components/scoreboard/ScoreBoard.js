@@ -16,7 +16,7 @@ const ScoreBoardBlock = styled.div`
 
 const Wrapper = styled(Responsive)`
   width: 86vw;
-  height: 56vw;
+  height: 38vw;
   display: flex;
   padding: 2vw;
   align-items: center;
