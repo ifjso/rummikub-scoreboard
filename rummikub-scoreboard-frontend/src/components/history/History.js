@@ -14,7 +14,7 @@ const HistoryBlock = styled(Responsive)`
   flex-wrap: wrap;
 
   @media (max-width: 768px) {
-    padding: 0;
+    padding: 2.2em 0 0 0;
   }
 `;
 
@@ -40,13 +40,6 @@ const History = () => {
   return (
     <HistoryBlock>
       <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>누가</Table.HeaderCell>
-            <Table.HeaderCell>무엇을</Table.HeaderCell>
-            <Table.HeaderCell>언제</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
         <Table.Body>
           {histories.map(history => {
             const isPositive = history.value >= 0;
