@@ -65,7 +65,7 @@ const Profile = ({ reversed, owner }) => {
     return () => {
       isCancelled.current = true;
     };
-  });
+  }, [owner]);
 
   return (
     <ProfileBlock reversed={reversed}>
