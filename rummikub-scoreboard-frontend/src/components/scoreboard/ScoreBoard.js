@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../commons/Responsive';
 import Score from './Score';
-import Button from '../commons/Button';
+import LinkButton from '../commons/LinkButton';
 
 const ScoreBoardBlock = styled.div`
   width: 100vw;
@@ -32,11 +32,6 @@ const Breaker = styled.div`
   height: 1vw;
 `;
 
-const LinkButton = styled(Button)`
-  width: 24vw;
-  font-size: 3vw;
-  text-align: center;
-`;
 const ScoreBoard = () => (
   <ScoreBoardBlock>
     <Wrapper>
@@ -47,7 +42,7 @@ const ScoreBoard = () => (
       <Score reversed owner={2} />
     </Wrapper>
     <Breaker />
-    <LinkButton to="/histories">업데이트 로그</LinkButton>
+    <LinkButton to="/histories">히스토리</LinkButton>
   </ScoreBoardBlock>
 );
 
