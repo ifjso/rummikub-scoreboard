@@ -8,7 +8,7 @@ const ScoreBoardBlock = styled.div`
   height: 100vh;
   background: white;
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 `;
