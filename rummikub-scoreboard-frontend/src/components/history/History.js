@@ -9,12 +9,16 @@ import { listHistories } from '../../lib/api/histories';
 
 const HistoryBlock = styled(Responsive)`
   display: flex;
-  width: 80vw;
+  width: 100vw;
   height: 100vh;
   padding: 2rem;
   align-content: center;
   justify-content: center;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `;
 
 const History = () => {
@@ -23,7 +27,7 @@ const History = () => {
 
   useEffect(() => {
     const listHistoriesFunc = async () => {
-      const { data } = await listHistories({ from: 1 });
+      const { data } = await listHistories({ from: 1, limit: 5 });
       if (!isCancelled.current) {
         setHistories(data);
       }
@@ -38,7 +42,7 @@ const History = () => {
 
   return (
     <HistoryBlock>
-      <Table sortable celled unstackable>
+      <Table sortable celled selectable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>누가</Table.HeaderCell>
@@ -47,17 +51,24 @@ const History = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {histories.map(history => (
-            <Table.Row key={history._id}>
-              <Table.Cell>{history.name}</Table.Cell>
-              <Table.Cell>
-                {history.value >= 0 ? `+${history.value}` : `${history.value}`}
-              </Table.Cell>
-              <Table.Cell>
-                {moment(history.createdAt).format('YYYY-MM-DD HH:mm:ss.SSS')}
-              </Table.Cell>
-            </Table.Row>
-          ))}
+          {histories.map(history => {
+            const isPositive = history.value >= 0;
+            return (
+              <Table.Row
+                key={history._id}
+                positive={isPositive}
+                negative={!isPositive}
+              >
+                <Table.Cell>{history.name}</Table.Cell>
+                <Table.Cell>
+                  {isPositive ? `+${history.value}` : `${history.value}`}
+                </Table.Cell>
+                <Table.Cell>
+                  {moment(history.createdAt).format('YYYY-MM-DD HH:mm:ss.SSS')}
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table>
       <Breaker />
