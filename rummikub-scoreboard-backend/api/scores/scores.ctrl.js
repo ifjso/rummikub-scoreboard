@@ -1,5 +1,7 @@
 const createError = require('http-errors');
 const Score = require('../../models/score');
+const User = require('../../models/user');
+const History = require('../../models/history');
 
 const read = async (req, res, next) => {
   try {
@@ -19,6 +21,12 @@ const update = async (req, res, next) => {
   try {
     const { owner } = req.params;
     const { score } = req.body;
+
+    const user = await User.findOne({ owner });
+    if (!user) {
+      throw new Error(`${owner} not found.`);
+    }
+
     const prevScore = await Score.findOneAndUpdate(
       { owner },
       { score, updatedAt: Date.now() }
@@ -29,6 +37,12 @@ const update = async (req, res, next) => {
         `Failed to save ${owner}'s score.`
       );
     }
+
+    await History.create({
+      owner,
+      name: user.name,
+      value: score - prevScore.score
+    });
 
     res.json(Object.assign(prevScore, { score }));
   } catch (e) {
