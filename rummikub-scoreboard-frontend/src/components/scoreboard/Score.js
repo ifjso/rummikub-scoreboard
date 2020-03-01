@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import Button from '../commons/Button';
 import { readUser } from '../../lib/api/users';
@@ -94,13 +94,16 @@ const Score = ({ reversed = false, owner }) => {
     };
   }, [owner]);
 
-  const onClick = async newScore => {
-    await updateScore({ owner, score: newScore });
+  const onClick = useCallback(
+    async newScore => {
+      await updateScore({ owner, score: newScore });
 
-    if (!isCancelled.current) {
-      setScore(newScore);
-    }
-  };
+      if (!isCancelled.current) {
+        setScore(newScore);
+      }
+    },
+    [owner]
+  );
 
   return (
     <ScoreBlock>
