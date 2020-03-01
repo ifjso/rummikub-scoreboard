@@ -6,12 +6,18 @@ const History = require('../../models/history');
 const read = async (req, res, next) => {
   try {
     const { owner } = req.params;
+
+    const user = await user.findOne({ owner });
+    if (!user) {
+      throw new Error(`${owner} not found.`);
+    }
+
     const score = await Score.findOne({ owner });
     if (!score) {
       throw new createError.NotFound(`${owner}'s score not found.`);
     }
 
-    res.json(score);
+    res.json({ ...score, user });
   } catch (e) {
     next(e);
   }
