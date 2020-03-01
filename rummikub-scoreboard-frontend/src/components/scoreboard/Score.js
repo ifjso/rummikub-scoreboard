@@ -6,7 +6,7 @@ import { readScore, updateScore } from '../../lib/api/scores';
 
 const ScoreBlock = styled.div`
   width: 34vw;
-  height: 40vw;
+  height: 36vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,11 +27,7 @@ const ProfileBlock = styled.div`
   width: 100%;
   height: 24%;
   display: flex;
-  .nickname {
-    margin: 0 auto;
-    font-size: 6vw;
-    padding: 1vw;
-  }
+
   ${({ reversed }) =>
     reversed &&
     css`
@@ -41,6 +37,13 @@ const ProfileBlock = styled.div`
 
 const Picture = styled.div`
   width: 28%;
+`;
+
+const Nickname = styled.span`
+  margin: 0 auto;
+  padding: 1vw;
+  font-size: 6vw;
+  line-height: 1em;
 `;
 
 const Profile = ({ reversed, owner }) => {
@@ -67,7 +70,7 @@ const Profile = ({ reversed, owner }) => {
   return (
     <ProfileBlock reversed={reversed}>
       <Picture reversed={reversed} picture={picture} />
-      <span className="nickname">{name}</span>
+      <Nickname>{name}</Nickname>
     </ProfileBlock>
   );
 };
