@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Table } from 'semantic-ui-react';
 import moment from 'moment';
-import { listHistories } from '../../lib/api/histories';
+import { Table } from 'semantic-ui-react';
 import Responsive from '../commons/Responsive';
+import Breaker from '../commons/Breaker';
+import LinkButton from '../commons/LinkButton';
+import { listHistories } from '../../lib/api/histories';
 
 const HistoryBlock = styled(Responsive)`
   display: flex;
   width: 80vw;
   height: 100vh;
   padding: 2rem;
-  align-items: center;
+  align-content: center;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 
 const History = () => {
@@ -57,6 +60,8 @@ const History = () => {
           ))}
         </Table.Body>
       </Table>
+      <Breaker />
+      <LinkButton to="/">점수판</LinkButton>
     </HistoryBlock>
   );
 };

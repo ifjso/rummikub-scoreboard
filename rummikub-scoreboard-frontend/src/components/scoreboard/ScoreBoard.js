@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../commons/Responsive';
 import Score from './Score';
+import Breaker from '../commons/Breaker';
 import LinkButton from '../commons/LinkButton';
 
 const ScoreBoardBlock = styled.div`
@@ -17,7 +18,6 @@ const ScoreBoardBlock = styled.div`
 const Wrapper = styled(Responsive)`
   width: 86vw;
   height: 40vw;
-  display: flex;
   padding: 2vw;
   align-items: center;
   justify-content: space-between;
@@ -25,11 +25,6 @@ const Wrapper = styled(Responsive)`
     margin: 0;
     font-size: 12vw;
   }
-`;
-
-const Breaker = styled.div`
-  flex-basis: 100%;
-  height: 1vw;
 `;
 
 const ScoreBoard = () => (
