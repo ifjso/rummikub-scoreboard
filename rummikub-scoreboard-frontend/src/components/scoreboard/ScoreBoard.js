@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Responsive from '../commons/Responsive';
 import Score from './Score';
-import Breaker from '../commons/Breaker';
-import LinkButton from '../commons/LinkButton';
 
 const ScoreBoardBlock = styled.div`
   width: 100vw;
@@ -36,8 +34,6 @@ const ScoreBoard = () => (
       </span>
       <Score reversed owner={2} />
     </Wrapper>
-    <Breaker />
-    <LinkButton to="/histories">히스토리</LinkButton>
   </ScoreBoardBlock>
 );
 

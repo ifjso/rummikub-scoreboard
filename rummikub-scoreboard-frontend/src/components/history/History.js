@@ -3,14 +3,12 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { Table } from 'semantic-ui-react';
 import Responsive from '../commons/Responsive';
-import Breaker from '../commons/Breaker';
-import LinkButton from '../commons/LinkButton';
 import { listHistories } from '../../lib/api/histories';
 
 const HistoryBlock = styled(Responsive)`
   display: flex;
   width: 100vw;
-  padding: 2rem;
+  padding: 4rem;
   align-content: center;
   justify-content: center;
   flex-wrap: wrap;
@@ -66,8 +64,6 @@ const History = () => {
           })}
         </Table.Body>
       </Table>
-      <Breaker />
-      <LinkButton to="/">점수판</LinkButton>
     </HistoryBlock>
   );
 };
