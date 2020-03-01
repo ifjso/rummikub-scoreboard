@@ -6,7 +6,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/rummikub-scoreboard">
     <App />
   </BrowserRouter>,
   document.getElementById('root')
