@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import Button from '../commons/Button';
-import { readUser } from '../../lib/api/users';
 import { readScore, updateScore } from '../../lib/api/scores';
 
 const ScoreBlock = styled.div`
@@ -46,43 +45,23 @@ const Nickname = styled.span`
   line-height: 1em;
 `;
 
-const Profile = ({ reversed, owner }) => {
-  const [picture, setPicture] = useState('');
-  const [name, setName] = useState('');
-  const isCancelled = useRef(false);
-
-  useEffect(() => {
-    const readUserFunc = async () => {
-      const { data } = await readUser(owner);
-      if (!isCancelled.current) {
-        setPicture(data.picture);
-        setName(data.name);
-      }
-    };
-
-    readUserFunc();
-
-    return () => {
-      isCancelled.current = true;
-    };
-  }, [owner]);
-
-  return (
-    <ProfileBlock reversed={reversed}>
-      <Picture reversed={reversed} picture={picture} />
-      <Nickname>{name}</Nickname>
-    </ProfileBlock>
-  );
-};
+const Profile = ({ reversed, user: { name, picture } }) => (
+  <ProfileBlock reversed={reversed}>
+    <Picture reversed={reversed} picture={picture} />
+    <Nickname>{name}</Nickname>
+  </ProfileBlock>
+);
 
 const Score = ({ reversed = false, owner }) => {
   const [score, setScore] = useState(0);
+  const [user, setUser] = useState({});
   const isCancelled = useRef(false);
 
   useEffect(() => {
     const readScoreFunc = async () => {
       const { data } = await readScore(owner);
       if (!isCancelled.current) {
+        setUser(data.user);
         setScore(data.score);
       }
     };
@@ -95,22 +74,23 @@ const Score = ({ reversed = false, owner }) => {
   }, [owner]);
 
   const onClick = useCallback(
-    async newScore => {
+    async value => {
+      const newScore = score + value;
       await updateScore({ owner, score: newScore });
 
       if (!isCancelled.current) {
         setScore(newScore);
       }
     },
-    [owner]
+    [owner, score]
   );
 
   return (
     <ScoreBlock>
-      <Profile reversed={reversed} owner={owner} />
+      <Profile reversed={reversed} user={user} />
       <h1>{score}</h1>
-      <Button onClick={() => onClick(score - 1)}>-</Button>
-      <Button onClick={() => onClick(score + 1)}>+</Button>
+      <Button onClick={() => onClick(-1)}>-</Button>
+      <Button onClick={() => onClick(1)}>+</Button>
     </ScoreBlock>
   );
 };
