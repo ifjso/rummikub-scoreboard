@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { Table } from 'semantic-ui-react';
+import { Table, Input } from 'semantic-ui-react';
 import Responsive from '../commons/Responsive';
 import { listHistories } from '../../lib/api/histories';
 
@@ -48,6 +48,13 @@ const History = () => {
                 <Table.Cell>{history.name}</Table.Cell>
                 <Table.Cell positive={isPositive} negative={!isPositive}>
                   {isPositive ? `+${history.value}` : `${history.value}`}
+                </Table.Cell>
+                <Table.Cell>
+                  <Input
+                    transparent
+                    placeholder="Why"
+                    style={{ width: '100%' }}
+                  />
                 </Table.Cell>
                 <Table.Cell>
                   {moment(history.createdAt).format('YYYY-MM-DD HH:mm:ss.SSS')}
