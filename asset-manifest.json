@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/rummikub-scoreboard/static/css/main.d1b05096.chunk.css",
-    "main.js": "/rummikub-scoreboard/static/js/main.a2a18530.chunk.js",
-    "main.js.map": "/rummikub-scoreboard/static/js/main.a2a18530.chunk.js.map",
+    "main.js": "/rummikub-scoreboard/static/js/main.d725e520.chunk.js",
+    "main.js.map": "/rummikub-scoreboard/static/js/main.d725e520.chunk.js.map",
     "runtime-main.js": "/rummikub-scoreboard/static/js/runtime-main.6d63a623.js",
     "runtime-main.js.map": "/rummikub-scoreboard/static/js/runtime-main.6d63a623.js.map",
     "static/js/2.c31a91b1.chunk.js": "/rummikub-scoreboard/static/js/2.c31a91b1.chunk.js",
     "static/js/2.c31a91b1.chunk.js.map": "/rummikub-scoreboard/static/js/2.c31a91b1.chunk.js.map",
     "index.html": "/rummikub-scoreboard/index.html",
-    "precache-manifest.d4b4dc9cc92d4b8bafd7869c757647c5.js": "/rummikub-scoreboard/precache-manifest.d4b4dc9cc92d4b8bafd7869c757647c5.js",
+    "precache-manifest.5a354ecc5ae7a9c24d3956b7110cfa5b.js": "/rummikub-scoreboard/precache-manifest.5a354ecc5ae7a9c24d3956b7110cfa5b.js",
     "service-worker.js": "/rummikub-scoreboard/service-worker.js",
     "static/css/main.d1b05096.chunk.css.map": "/rummikub-scoreboard/static/css/main.d1b05096.chunk.css.map",
     "static/js/2.c31a91b1.chunk.js.LICENSE.txt": "/rummikub-scoreboard/static/js/2.c31a91b1.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.6d63a623.js",
     "static/js/2.c31a91b1.chunk.js",
     "static/css/main.d1b05096.chunk.css",
-    "static/js/main.a2a18530.chunk.js"
+    "static/js/main.d725e520.chunk.js"
   ]
 }
