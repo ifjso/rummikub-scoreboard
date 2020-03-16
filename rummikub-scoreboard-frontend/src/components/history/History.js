@@ -12,10 +12,6 @@ const HistoryBlock = styled(Responsive)`
   align-content: center;
   justify-content: center;
   flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    padding: 2.2em 0 0 0;
-  }
 `;
 
 const History = () => {
