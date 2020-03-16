@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroller';
 import moment from 'moment';
-import { Table, Input } from 'semantic-ui-react';
 import Responsive from '../commons/Responsive';
 import { listHistories } from '../../lib/api/histories';
 
@@ -20,50 +20,29 @@ const HistoryBlock = styled(Responsive)`
 
 const History = () => {
   const [histories, setHistories] = useState([]);
-  const isCancelled = useRef(false);
+  const [skip, setSkip] = useState(0);
 
-  useEffect(() => {
-    const listHistoriesFunc = async () => {
-      const { data } = await listHistories({ from: 1, limit: 20 });
-      if (!isCancelled.current) {
-        setHistories(data);
-      }
-    };
-
-    listHistoriesFunc();
-
-    return () => {
-      isCancelled.current = true;
-    };
-  }, []);
+  const loadFunc = async () => {
+    const { data } = await listHistories({ from: 1, skip, limit: 20 });
+    setHistories(histories.concat(data));
+    setSkip(skip + 20);
+  };
 
   return (
     <HistoryBlock>
-      <Table celled>
-        <Table.Body>
-          {histories.map(history => {
-            const isPositive = history.value >= 0;
-            return (
-              <Table.Row key={history._id}>
-                <Table.Cell>{history.name}</Table.Cell>
-                <Table.Cell positive={isPositive} negative={!isPositive}>
-                  {isPositive ? `+${history.value}` : `${history.value}`}
-                </Table.Cell>
-                <Table.Cell>
-                  <Input
-                    transparent
-                    placeholder="Why"
-                    style={{ width: '100%' }}
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  {moment(history.createdAt).format('YYYY-MM-DD HH:mm:ss.SSS')}
-                </Table.Cell>
-              </Table.Row>
-            );
-          })}
-        </Table.Body>
-      </Table>
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={loadFunc}
+        hasMore
+        loader={<h4 key={0}>loading...</h4>}
+      >
+        {histories.map(history => (
+          <div key={history._id} style={{ marginBottom: '5vh' }}>
+            {moment(history.createdAt).format('YYYY-MM-DD HH:mm:ss.SSS')}{' '}
+            {history.name} {history.value}
+          </div>
+        ))}
+      </InfiniteScroll>
     </HistoryBlock>
   );
 };
