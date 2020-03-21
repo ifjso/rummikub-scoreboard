@@ -1,7 +1,7 @@
 import qs from 'qs';
 import client from './client';
 
-export const listHistories = ({ from, to, skip, limit }) => {
-  const queryString = qs.stringify({ from, to, skip, limit });
+export const listHistories = ({ page, perPage }) => {
+  const queryString = qs.stringify({ page, perPage });
   return client.get(`/api/histories?${queryString}`);
 };

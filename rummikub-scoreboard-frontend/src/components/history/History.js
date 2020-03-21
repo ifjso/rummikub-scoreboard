@@ -16,12 +16,12 @@ const HistoryBlock = styled(Responsive)`
 
 const History = () => {
   const [histories, setHistories] = useState([]);
-  const [skip, setSkip] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(true);
 
-  const loadFunc = async () => {
-    const { data } = await listHistories({ from: 1, skip, limit: 20 });
-    setHistories(histories.concat(data));
-    setSkip(skip + 20);
+  const loadFunc = async page => {
+    const { data } = await listHistories({ page });
+    setHistories(histories.concat(data.histories));
+    setHasNextPage(data.hasNextPage);
   };
 
   return (
@@ -29,7 +29,7 @@ const History = () => {
       <InfiniteScroll
         pageStart={0}
         loadMore={loadFunc}
-        hasMore
+        hasMore={hasNextPage}
         loader={<h4 key={0}>loading...</h4>}
       >
         {histories.map(history => (
