@@ -35,6 +35,10 @@ const HistoryBox = styled.div`
     `}
 `;
 
+const ContentBlock = styled.p`
+  line-height: 0.8em;
+`;
+
 const History = () => {
   const [histories, setHistories] = useState([]);
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -55,13 +59,13 @@ const History = () => {
       >
         {histories.map(history => (
           <HistoryBox key={history._id} value={history.value}>
-            <p>
+            <ContentBlock>
               {moment(history.createdAt).format(
                 'YYYY년 MM월 DD일 HH시mm분ss초'
               )}
-            </p>
-            <p>{history.name}</p>
-            <p>{history.value}</p>
+            </ContentBlock>
+            <ContentBlock>{history.name}</ContentBlock>
+            <ContentBlock>{history.value}</ContentBlock>
           </HistoryBox>
         ))}
       </InfiniteScrollWithBlock>
