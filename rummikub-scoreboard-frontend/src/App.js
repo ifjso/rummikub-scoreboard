@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import TopMenu from './components/memu/TopMenu';
+import TopMenu from './components/menu/TopMenu';
 import ScoreBoardPage from './pages/ScoreBoardPage';
 import HistoryPage from './pages/HistoryPage';
 import './App.css';
