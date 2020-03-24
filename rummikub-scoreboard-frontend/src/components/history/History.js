@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Dimmer, Loader } from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
 import moment from 'moment';
 import Responsive from '../commons/Responsive';
 import { listHistories } from '../../lib/api/histories';
@@ -15,7 +15,7 @@ const HistoryBlock = styled(Responsive)`
   flex-wrap: wrap;
 `;
 
-const InfiniteScrollWithBlock = styled(InfiniteScroll)`
+const InfiniteScrollBlock = styled(InfiniteScroll)`
   width: 100vw;
 `;
 
@@ -52,11 +52,13 @@ const History = () => {
 
   return (
     <HistoryBlock>
-      <InfiniteScrollWithBlock
+      <InfiniteScrollBlock
         pageStart={0}
         loadMore={loadFunc}
         hasMore={hasNextPage}
-        loader={<Loader active inline="centered" size="small" />}
+        loader={
+          <Loader key={Date.now()} active inline="centered" size="small" />
+        }
       >
         {histories.map(history => (
           <HistoryBox key={history._id} value={history.value}>
@@ -69,7 +71,7 @@ const History = () => {
             <ContentBlock>{history.value}</ContentBlock>
           </HistoryBox>
         ))}
-      </InfiniteScrollWithBlock>
+      </InfiniteScrollBlock>
     </HistoryBlock>
   );
 };
