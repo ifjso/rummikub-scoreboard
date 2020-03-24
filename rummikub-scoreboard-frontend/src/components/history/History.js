@@ -56,9 +56,7 @@ const History = () => {
         pageStart={0}
         loadMore={loadFunc}
         hasMore={hasNextPage}
-        loader={
-          <Loader key={Date.now()} active inline="centered" size="small" />
-        }
+        loader={<Loader key="1" active inline="centered" size="small" />}
       >
         {histories.map(history => (
           <HistoryBox key={history._id} value={history.value}>
