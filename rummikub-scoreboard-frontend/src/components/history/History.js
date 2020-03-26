@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Loader } from 'semantic-ui-react';
-import moment from 'moment';
+import TimeAgo from 'react-timeago';
+import koreaStrings from 'react-timeago/lib/language-strings/ko';
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 import Responsive from '../commons/Responsive';
 import { listHistories } from '../../lib/api/histories';
+
+const formatter = buildFormatter(koreaStrings);
 
 const HistoryBlock = styled(Responsive)`
   display: flex;
@@ -20,6 +24,9 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
 `;
 
 const HistoryBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 2vh;
   padding: 1.5rem;
   font-size: 1.1em;
@@ -36,8 +43,12 @@ const HistoryBox = styled.div`
     `}
 `;
 
-const ContentBlock = styled.p`
+const ContentBlock = styled.span`
+  flex: 1;
+  display: flex;
+  justify-content: ${({ right }) => (right ? 'flex-end' : 'flex-start')};
   line-height: 0.8em;
+  font-size: ${({ size = 1 }) => `${size}em`};
 `;
 
 const History = () => {
@@ -60,13 +71,11 @@ const History = () => {
       >
         {histories.map(history => (
           <HistoryBox key={history._id} value={history.value}>
-            <ContentBlock>
-              {moment(history.createdAt).format(
-                'YYYY년 MM월 DD일 HH시mm분ss초'
-              )}
+            <ContentBlock size="2">{history.value}</ContentBlock>
+            <ContentBlock size="2">{history.name}</ContentBlock>
+            <ContentBlock right>
+              <TimeAgo date={history.createdAt} formatter={formatter} />
             </ContentBlock>
-            <ContentBlock>{history.name}</ContentBlock>
-            <ContentBlock>{history.value}</ContentBlock>
           </HistoryBox>
         ))}
       </InfiniteScrollBlock>
