@@ -9,7 +9,7 @@ import { listHistories } from '../../lib/api/histories';
 const HistoryBlock = styled(Responsive)`
   display: flex;
   width: 100vw;
-  padding: 4rem 2rem;
+  padding: 5rem 2rem;
   align-content: center;
   justify-content: center;
   flex-wrap: wrap;
