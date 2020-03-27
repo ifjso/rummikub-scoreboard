@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Loader } from 'semantic-ui-react';
@@ -54,11 +54,21 @@ const ContentBlock = styled.span`
 const History = () => {
   const [histories, setHistories] = useState([]);
   const [hasNextPage, setHasNextPage] = useState(true);
+  const isCancelled = useRef(false);
+
+  useEffect(
+    () => () => {
+      isCancelled.current = true;
+    },
+    []
+  );
 
   const loadFunc = async page => {
     const { data } = await listHistories({ page });
-    setHistories(histories.concat(data.histories));
-    setHasNextPage(data.hasNextPage);
+    if (!isCancelled.current) {
+      setHistories(histories.concat(data.histories));
+      setHasNextPage(data.hasNextPage);
+    }
   };
 
   return (
