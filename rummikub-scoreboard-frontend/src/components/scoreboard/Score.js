@@ -1,30 +1,37 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled, { css } from 'styled-components';
+import { Icon } from 'semantic-ui-react';
 import Button from '../commons/Button';
 import { readScore, updateScore } from '../../lib/api/scores';
 
 const ScoreBlock = styled.div`
-  width: 34vw;
-  height: 36vw;
+  width: 26vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-content: space-between;
   justify-content: center;
   flex-flow: row wrap;
 
   h1 {
     margin: 0;
-    height: 50%;
-    width: 100%;
     text-align: center;
-    font-size: 18vw;
+    font-size: 28vw;
     line-height: 19vw;
   }
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: wrap;
+  height: 42vw;
+  padding-bottom: 5vh;
+`;
+
 const ProfileBlock = styled.div`
   width: 100%;
-  height: 24%;
   display: flex;
 
   ${({ reversed }) =>
@@ -42,7 +49,7 @@ const Nickname = styled.span`
   margin: 0 auto;
   padding: 1vw;
   font-size: 6vw;
-  line-height: 1em;
+  line-height: 2em;
 `;
 
 const Profile = ({ reversed, user: { name, picture } }) => (
@@ -87,10 +94,16 @@ const Score = ({ reversed = false, owner }) => {
 
   return (
     <ScoreBlock>
-      <Profile reversed={reversed} user={user} />
-      <h1>{score}</h1>
-      <Button onClick={() => onClick(-1)}>-</Button>
-      <Button onClick={() => onClick(1)}>+</Button>
+      <Button onClick={() => onClick(1)}>
+        <Icon name="plus" size="small" />
+      </Button>
+      <Wrapper>
+        <Profile reversed={reversed} user={user} />
+        <h1>{score}</h1>
+      </Wrapper>
+      <Button onClick={() => onClick(-1)}>
+        <Icon name="minus" size="small" />
+      </Button>
     </ScoreBlock>
   );
 };
