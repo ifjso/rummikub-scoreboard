@@ -95,14 +95,14 @@ const Score = ({ reversed = false, owner }) => {
   return (
     <ScoreBlock>
       <Button onClick={() => onClick(1)}>
-        <Icon name="plus" size="small" />
+        <Icon name="plus" size="small" color="grey" />
       </Button>
       <Wrapper>
         <Profile reversed={reversed} user={user} />
         <h1>{score}</h1>
       </Wrapper>
       <Button onClick={() => onClick(-1)}>
-        <Icon name="minus" size="small" />
+        <Icon name="minus" size="small" color="grey" />
       </Button>
     </ScoreBlock>
   );
