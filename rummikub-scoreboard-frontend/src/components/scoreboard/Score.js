@@ -17,7 +17,7 @@ const ScoreBlock = styled.div`
     margin: 0;
     text-align: center;
     font-size: 28vw;
-    line-height: 19vw;
+    line-height: 24vw;
   }
 `;
 
@@ -26,7 +26,6 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-flow: wrap;
-  height: 42vw;
   padding-bottom: 5vh;
 `;
 
