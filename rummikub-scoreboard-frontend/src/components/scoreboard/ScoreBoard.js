@@ -15,7 +15,7 @@ const ScoreBoardBlock = styled.div`
 
 const Wrapper = styled(Responsive)`
   width: 86vw;
-  height: 40vw;
+  height: 90vw;
   padding: 2vw;
   align-items: center;
   justify-content: space-between;
@@ -25,13 +25,16 @@ const Wrapper = styled(Responsive)`
   }
 `;
 
+const SpanWithPaddingTop = styled.span`
+  padding-top: 3vw;
+  font-weight: bold;
+`;
+
 const ScoreBoard = () => (
   <ScoreBoardBlock>
     <Wrapper>
       <Score reversed={false} owner={1} />
-      <span>
-        <b>:</b>
-      </span>
+      <SpanWithPaddingTop>:</SpanWithPaddingTop>
       <Score reversed owner={2} />
     </Wrapper>
   </ScoreBoardBlock>
