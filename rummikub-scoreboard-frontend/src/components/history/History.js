@@ -30,16 +30,11 @@ const HistoryBox = styled.div`
   margin-bottom: 2vh;
   padding: 1.5rem;
   font-size: 1.1em;
-  border-radius: 1rem;
-  background-color: #fcfff5;
-  color: #2c662d;
-  box-shadow: 0 0 0 2px #a3c293 inset, 0 0 0 0 transparent;
+  color: #5aff5d;
   ${({ value }) =>
     value < 0 &&
     css`
-      background-color: #fff6f6;
-      color: #9f3a38;
-      box-shadow: 0 0 0 2px #e0b4b4 inset, 0 0 0 0 transparent;
+      color: #ff3834;
     `}
 `;
 
@@ -81,7 +76,9 @@ const History = () => {
       >
         {histories.map(history => (
           <HistoryBox key={history._id} value={history.value}>
-            <ContentBlock size="2">{history.value}</ContentBlock>
+            <ContentBlock size="2">
+              {history.value > 0 ? `+${history.value}` : history.value}
+            </ContentBlock>
             <ContentBlock size="2">{history.name}</ContentBlock>
             <ContentBlock right>
               <TimeAgo date={history.createdAt} formatter={formatter} />
