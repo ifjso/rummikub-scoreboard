@@ -11,12 +11,12 @@ import { listHistories } from '../../lib/api/histories';
 const formatter = buildFormatter(koreaStrings);
 
 const HistoryBlock = styled(Responsive)`
-  display: flex;
+  /* display: flex; */
   width: 100vw;
   padding: 5rem 2rem;
-  align-content: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  /* align-content: center; */
+  /* justify-content: center; */
+  /* flex-wrap: wrap; */
 `;
 
 const InfiniteScrollBlock = styled(InfiniteScroll)`
@@ -24,11 +24,12 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
 `;
 
 const HistoryBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  /* flex-wrap: wrap; */
   margin-bottom: 2vh;
-  padding: 1.5rem;
+  padding: 0.5em;
   font-size: 1.1em;
   color: #5aff5d;
   ${({ value }) =>
@@ -42,8 +43,9 @@ const ContentBlock = styled.span`
   flex: 1;
   display: flex;
   justify-content: ${({ right }) => (right ? 'flex-end' : 'flex-start')};
-  line-height: 0.8em;
+  line-height: 1.5em;
   font-size: ${({ size = 1 }) => `${size}em`};
+  /* border: 1px solid white; */
 `;
 
 const History = () => {
@@ -76,13 +78,25 @@ const History = () => {
       >
         {histories.map(history => (
           <HistoryBox key={history._id} value={history.value}>
-            <ContentBlock size="2">
-              {history.value > 0 ? `+${history.value}` : history.value}
-            </ContentBlock>
-            <ContentBlock size="2">{history.name}</ContentBlock>
-            <ContentBlock right>
-              <TimeAgo date={history.createdAt} formatter={formatter} />
-            </ContentBlock>
+            {/* <ContentBlock size="2">{history.name}</ContentBlock> */}
+            <div style={{ display: 'flex', color: 'grey' }}>
+              <ContentBlock>{history.name}</ContentBlock>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <ContentBlock size="2" style={{ flex: 1 }}>
+                {history.value > 0 ? `+${history.value}` : history.value}
+              </ContentBlock>
+              <span
+                role="img"
+                aria-label="moon"
+                style={{ flex: 2, fontSize: '2em' }}
+              >
+                🌝
+              </span>
+              <ContentBlock style={{ color: 'grey' }}>
+                <TimeAgo date={history.createdAt} formatter={formatter} />
+              </ContentBlock>
+            </div>
           </HistoryBox>
         ))}
       </InfiniteScrollBlock>
