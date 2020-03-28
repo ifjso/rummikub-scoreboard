@@ -6,7 +6,6 @@ import Score from './Score';
 const ScoreBoardBlock = styled.div`
   width: 100vw;
   height: 100vh;
-  background: white;
   display: flex;
   align-items: center;
   justify-content: center;

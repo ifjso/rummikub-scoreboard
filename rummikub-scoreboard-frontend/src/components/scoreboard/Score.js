@@ -8,6 +8,7 @@ const ScoreBlock = styled.div`
   width: 26vw;
   height: 100%;
   display: flex;
+  color: white;
   flex-direction: column;
   align-content: space-between;
   justify-content: center;

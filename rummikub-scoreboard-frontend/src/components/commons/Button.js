@@ -9,16 +9,8 @@ const buttonStyle = css`
   font-size: 10vw;
   padding: 1.5vw;
   line-height: 7vw;
+  background: black;
   cursor: pointer;
-
-  background: white;
-  &:hover {
-    background: #f1f1f1;
-  }
-  &:active {
-    background: #cccccc;
-    color: #555555;
-  }
 `;
 
 const StyledLink = styled(Link)`
