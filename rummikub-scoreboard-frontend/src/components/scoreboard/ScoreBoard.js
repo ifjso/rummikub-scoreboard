@@ -24,7 +24,7 @@ const Wrapper = styled(Responsive)`
   }
 `;
 
-const SpanWithPaddingTop = styled.span`
+const StyledSpan = styled.span`
   padding-top: 3vw;
   font-weight: bold;
   color: white;
@@ -34,7 +34,7 @@ const ScoreBoard = () => (
   <ScoreBoardBlock>
     <Wrapper>
       <Score reversed={false} owner={1} />
-      <SpanWithPaddingTop>:</SpanWithPaddingTop>
+      <StyledSpan>:</StyledSpan>
       <Score reversed owner={2} />
     </Wrapper>
   </ScoreBoardBlock>
