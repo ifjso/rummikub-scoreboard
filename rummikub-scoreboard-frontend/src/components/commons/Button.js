@@ -9,7 +9,7 @@ const buttonStyle = css`
   font-size: 10vw;
   padding: 1.5vw;
   line-height: 7vw;
-  background: black;
+  background: #121212;
   cursor: pointer;
 `;
 

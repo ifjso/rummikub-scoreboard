@@ -27,6 +27,7 @@ const Wrapper = styled(Responsive)`
 const SpanWithPaddingTop = styled.span`
   padding-top: 3vw;
   font-weight: bold;
+  color: white;
 `;
 
 const ScoreBoard = () => (
