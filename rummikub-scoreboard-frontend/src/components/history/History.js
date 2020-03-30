@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -11,12 +12,8 @@ import { listHistories } from '../../lib/api/histories';
 const formatter = buildFormatter(koreaStrings);
 
 const HistoryBlock = styled(Responsive)`
-  /* display: flex; */
   width: 100vw;
   padding: 5rem 2rem;
-  /* align-content: center; */
-  /* justify-content: center; */
-  /* flex-wrap: wrap; */
 `;
 
 const InfiniteScrollBlock = styled(InfiniteScroll)`
@@ -24,27 +21,21 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
 `;
 
 const HistoryBox = styled.div`
-  /* display: flex; */
-  /* justify-content: space-between; */
-  /* align-items: center; */
-  /* flex-wrap: wrap; */
   margin-bottom: 2vh;
-  padding: 0.5em;
   font-size: 1.1em;
   color: #5aff5d;
   ${({ value }) =>
     value < 0 &&
     css`
       color: #ff3834;
-    `}
+    `};
+  /* border: 1px solid white; */
 `;
 
-const ContentBlock = styled.span`
-  flex: 1;
-  display: flex;
-  justify-content: ${({ right }) => (right ? 'flex-end' : 'flex-start')};
+const Content = styled.span`
   line-height: 1.5em;
   font-size: ${({ size = 1 }) => `${size}em`};
+  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
   /* border: 1px solid white; */
 `;
 
@@ -78,24 +69,44 @@ const History = () => {
       >
         {histories.map(history => (
           <HistoryBox key={history._id} value={history.value}>
-            {/* <ContentBlock size="2">{history.name}</ContentBlock> */}
-            <div style={{ display: 'flex', color: 'grey' }}>
-              <ContentBlock>{history.name}</ContentBlock>
+            <div style={{ color: 'grey' }}>
+              <Content size="1.3" bold>
+                {history.name}
+              </Content>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <ContentBlock size="2" style={{ flex: 1 }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              <Content size="3.5" bold style={{ flex: 1 }}>
                 {history.value > 0 ? `+${history.value}` : history.value}
-              </ContentBlock>
-              <span
+              </Content>
+              <Content
+                size="2.8"
                 role="img"
                 aria-label="moon"
-                style={{ flex: 2, fontSize: '2em' }}
+                style={{ display: 'flex', justifyContent: 'center', flex: 1 }}
               >
                 🌝
-              </span>
-              <ContentBlock style={{ color: 'grey' }}>
-                <TimeAgo date={history.createdAt} formatter={formatter} />
-              </ContentBlock>
+              </Content>
+
+              <div
+                style={{
+                  flex: 3,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-end'
+                }}
+              >
+                <Content size="0.85" bold style={{ color: 'grey' }}>
+                  운동 3일 성공! 민이는 딱 하루함
+                </Content>
+                <Content size="0.85" style={{ color: 'grey' }}>
+                  <TimeAgo date={history.createdAt} formatter={formatter} />
+                </Content>
+              </div>
             </div>
           </HistoryBox>
         ))}
