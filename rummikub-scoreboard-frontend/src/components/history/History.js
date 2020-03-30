@@ -6,10 +6,18 @@ import { Loader } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
 import koreaStrings from 'react-timeago/lib/language-strings/ko';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
+import randomInt from 'random-int';
 import Responsive from '../commons/Responsive';
 import { listHistories } from '../../lib/api/histories';
 
 const formatter = buildFormatter(koreaStrings);
+
+const positiveEmojis = ['🌝', '🎉', '🎈', '🍡', '🌟'];
+const negativeEmojis = ['🌪', '😧', '⛈', '👻', '💩'];
+const getEmoji = value =>
+  value > 0
+    ? positiveEmojis[randomInt(positiveEmojis.length - 1)]
+    : negativeEmojis[randomInt(negativeEmojis.length - 1)];
 
 const HistoryBlock = styled(Responsive)`
   width: 100vw;
@@ -73,7 +81,14 @@ const History = () => {
   const loadFunc = async page => {
     const { data } = await listHistories({ page });
     if (!isCancelled.current) {
-      setHistories(histories.concat(data.histories));
+      setHistories(
+        histories.concat(
+          data.histories.map(history => ({
+            ...history,
+            emoji: getEmoji(history.value)
+          }))
+        )
+      );
       setHasNextPage(data.hasNextPage);
     }
   };
@@ -103,8 +118,8 @@ const History = () => {
                 {history.value > 0 ? `+${history.value}` : history.value}
               </Content>
 
-              <EmojiContent role="img" aria-label="moon" size="2.8">
-                🌝
+              <EmojiContent role="img" aria-label="" size="2.8">
+                {history.emoji}
               </EmojiContent>
 
               <ContentBlock>
