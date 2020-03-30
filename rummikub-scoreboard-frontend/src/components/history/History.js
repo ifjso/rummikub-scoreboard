@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useState, useEffect, useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Loader } from 'semantic-ui-react';
 import TimeAgo from 'react-timeago';
@@ -23,20 +23,39 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
 const HistoryBox = styled.div`
   margin-bottom: 2vh;
   font-size: 1.1em;
-  color: #5aff5d;
-  ${({ value }) =>
-    value < 0 &&
-    css`
-      color: #ff3834;
-    `};
-  /* border: 1px solid white; */
+`;
+
+const TopHistoryBlock = styled.div`
+  color: grey;
+`;
+
+const BottomHistoryBlock = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Content = styled.span`
+  flex: 1;
   line-height: 1.5em;
   font-size: ${({ size = 1 }) => `${size}em`};
   font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
+  color: ${({ color }) => (color ? ` ${color}` : '')};
+
   /* border: 1px solid white; */
+`;
+
+const EmojiContent = styled(Content)`
+  display: flex;
+  justify-content: center;
+  flex: 1;
+`;
+
+const ContentBlock = styled.div`
+  display: flex;
+  align-items: flex-end;
+  flex: 3;
+  flex-flow: column;
+  color: grey;
 `;
 
 const History = () => {
@@ -69,45 +88,34 @@ const History = () => {
       >
         {histories.map(history => (
           <HistoryBox key={history._id} value={history.value}>
-            <div style={{ color: 'grey' }}>
+            <TopHistoryBlock>
               <Content size="1.3" bold>
                 {history.name}
               </Content>
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              <Content size="3.5" bold style={{ flex: 1 }}>
+            </TopHistoryBlock>
+
+            <BottomHistoryBlock>
+              <Content
+                size="3.5"
+                bold
+                color={history.value > 0 ? '#5aff5d' : '#ff3834'}
+              >
                 {history.value > 0 ? `+${history.value}` : history.value}
               </Content>
-              <Content
-                size="2.8"
-                role="img"
-                aria-label="moon"
-                style={{ display: 'flex', justifyContent: 'center', flex: 1 }}
-              >
-                🌝
-              </Content>
 
-              <div
-                style={{
-                  flex: 3,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-end'
-                }}
-              >
-                <Content size="0.85" bold style={{ color: 'grey' }}>
+              <EmojiContent role="img" aria-label="moon" size="2.8">
+                🌝
+              </EmojiContent>
+
+              <ContentBlock>
+                <Content size="0.85" bold>
                   운동 3일 성공! 민이는 딱 하루함
                 </Content>
-                <Content size="0.85" style={{ color: 'grey' }}>
+                <Content size="0.85">
                   <TimeAgo date={history.createdAt} formatter={formatter} />
                 </Content>
-              </div>
-            </div>
+              </ContentBlock>
+            </BottomHistoryBlock>
           </HistoryBox>
         ))}
       </InfiniteScrollBlock>
