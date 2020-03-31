@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
+import randomInt from 'random-int';
 import Button from '../commons/Button';
 import { readUser, updateUser } from '../../lib/api/users';
 
@@ -80,7 +81,11 @@ const Score = ({ reversed = false, owner }) => {
 
   const onClick = useCallback(
     async value => {
-      const { data } = await updateUser({ owner, score: user.score + value });
+      const { data } = await updateUser({
+        owner,
+        score: user.score + value,
+        emojiType: value > 0 ? randomInt(4) : randomInt(5, 9)
+      });
 
       if (!isCancelled.current) {
         setUser(data);

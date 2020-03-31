@@ -3,16 +3,11 @@ import styled from 'styled-components';
 import TimeAgo from 'react-timeago';
 import koreaStrings from 'react-timeago/lib/language-strings/ko';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
-import randomInt from 'random-int';
 
 const formatter = buildFormatter(koreaStrings);
 
-const positiveEmojis = ['🌝', '🎉', '🎈', '🍡', '🌟'];
-const negativeEmojis = ['🌪', '😧', '⛈', '👻', '💩'];
-const getEmoji = value =>
-  value > 0
-    ? positiveEmojis[randomInt(positiveEmojis.length - 1)]
-    : negativeEmojis[randomInt(negativeEmojis.length - 1)];
+const emojis = ['🌝', '🎉', '🎈', '🍡', '🌟', '🌪', '😧', '⛈', '👻', '💩'];
+const getEmoji = value => emojis[value];
 
 const HistoryBox = styled.div`
   margin-bottom: 2vh;
@@ -68,12 +63,12 @@ const HistoryItem = ({ history }) => (
       </Content>
 
       <EmojiContent role="img" aria-label="" size="2.8">
-        {getEmoji(history.value)}
+        {getEmoji(history.emojiType)}
       </EmojiContent>
 
       <ContentBlock>
         <Content size="0.85" bold>
-          운동 3일 성공! 민이는 딱 하루함
+          {history.memo}
         </Content>
         <Content size="0.85">
           <TimeAgo date={history.createdAt} formatter={formatter} />
