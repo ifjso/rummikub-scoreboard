@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/rummikub-scoreboard/static/css/main.d6f95b44.chunk.css",
-    "main.js": "/rummikub-scoreboard/static/js/main.4a8cdd21.chunk.js",
-    "main.js.map": "/rummikub-scoreboard/static/js/main.4a8cdd21.chunk.js.map",
+    "main.js": "/rummikub-scoreboard/static/js/main.5ce05116.chunk.js",
+    "main.js.map": "/rummikub-scoreboard/static/js/main.5ce05116.chunk.js.map",
     "runtime-main.js": "/rummikub-scoreboard/static/js/runtime-main.6d63a623.js",
     "runtime-main.js.map": "/rummikub-scoreboard/static/js/runtime-main.6d63a623.js.map",
-    "static/js/2.16cbc7b4.chunk.js": "/rummikub-scoreboard/static/js/2.16cbc7b4.chunk.js",
-    "static/js/2.16cbc7b4.chunk.js.map": "/rummikub-scoreboard/static/js/2.16cbc7b4.chunk.js.map",
+    "static/js/2.b9665533.chunk.js": "/rummikub-scoreboard/static/js/2.b9665533.chunk.js",
+    "static/js/2.b9665533.chunk.js.map": "/rummikub-scoreboard/static/js/2.b9665533.chunk.js.map",
     "index.html": "/rummikub-scoreboard/index.html",
-    "precache-manifest.5c8c6cfac8146b7fe407b0d83cc0f743.js": "/rummikub-scoreboard/precache-manifest.5c8c6cfac8146b7fe407b0d83cc0f743.js",
+    "precache-manifest.e4c5db88ba4528c3b2b201d16c65f0fc.js": "/rummikub-scoreboard/precache-manifest.e4c5db88ba4528c3b2b201d16c65f0fc.js",
     "service-worker.js": "/rummikub-scoreboard/service-worker.js",
     "static/css/main.d6f95b44.chunk.css.map": "/rummikub-scoreboard/static/css/main.d6f95b44.chunk.css.map",
-    "static/js/2.16cbc7b4.chunk.js.LICENSE.txt": "/rummikub-scoreboard/static/js/2.16cbc7b4.chunk.js.LICENSE.txt"
+    "static/js/2.b9665533.chunk.js.LICENSE.txt": "/rummikub-scoreboard/static/js/2.b9665533.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.6d63a623.js",
-    "static/js/2.16cbc7b4.chunk.js",
+    "static/js/2.b9665533.chunk.js",
     "static/css/main.d6f95b44.chunk.css",
-    "static/js/main.4a8cdd21.chunk.js"
+    "static/js/main.5ce05116.chunk.js"
   ]
 }
