@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import Button from '../commons/Button';
-import { readScore, updateScore } from '../../lib/api/scores';
+import { readUser, updateUser } from '../../lib/api/users';
 
 const ScoreBlock = styled.div`
   width: 26vw;
@@ -60,20 +60,18 @@ const Profile = ({ reversed, user: { name, picture } }) => (
 );
 
 const Score = ({ reversed = false, owner }) => {
-  const [score, setScore] = useState(0);
   const [user, setUser] = useState({});
   const isCancelled = useRef(false);
 
   useEffect(() => {
-    const readScoreFunc = async () => {
-      const { data } = await readScore(owner);
+    const readUserFunc = async () => {
+      const { data } = await readUser(owner);
       if (!isCancelled.current) {
-        setUser(data.user);
-        setScore(data.score);
+        setUser(data);
       }
     };
 
-    readScoreFunc();
+    readUserFunc();
 
     return () => {
       isCancelled.current = true;
@@ -82,14 +80,13 @@ const Score = ({ reversed = false, owner }) => {
 
   const onClick = useCallback(
     async value => {
-      const newScore = score + value;
-      await updateScore({ owner, score: newScore });
+      const { data } = await updateUser({ owner, score: user.score + value });
 
       if (!isCancelled.current) {
-        setScore(newScore);
+        setUser(data);
       }
     },
-    [owner, score]
+    [owner, user]
   );
 
   return (
@@ -99,7 +96,7 @@ const Score = ({ reversed = false, owner }) => {
       </Button>
       <Wrapper>
         <Profile reversed={reversed} user={user} />
-        <h1>{score}</h1>
+        <h1>{user.score}</h1>
       </Wrapper>
       <Button onClick={() => onClick(-1)}>
         <Icon name="minus" size="small" color="grey" />
