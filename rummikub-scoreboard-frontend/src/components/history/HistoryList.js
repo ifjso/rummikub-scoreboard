@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import { Loader } from 'semantic-ui-react';
 import Responsive from '../commons/Responsive';
-// import { listHistories } from '../../lib/api/histories';
+import { listHistories } from '../../lib/api/histories';
 import HistoryItem from './HistoryItem';
 
 const HistoryBlock = styled(Responsive)`
@@ -21,6 +21,7 @@ const HistoryList = () => {
     histories: [],
     hasNextPage: true
   });
+  const { histories, hasNextPage } = pagination;
   const isCancelled = useRef(false);
 
   useEffect(
@@ -30,43 +31,24 @@ const HistoryList = () => {
     []
   );
 
-  const makeHist = () => {
-    const hist = [];
-    for (let i = 0; i < 10; i += 1) {
-      hist.push({ value: i, _id: Math.random(), createdAt: Date.now() });
-    }
-    return hist;
-  };
-
   const loadFunc = async page => {
-    // const { data } = await listHistories({ page });
+    const { data } = await listHistories({ page });
     if (!isCancelled.current) {
-      // setHistories(
-      // histories.concat(
-      //   data.histories.map(history => ({
-      //     ...history,
-      //     emoji: getEmoji(history.value)
-      //   }))
-      // )
-      // );
-      // setHasNextPage(data.hasNextPage);
-
       setPagination({
-        histories: pagination.histories.concat(makeHist()),
-        hasNextPage: true
+        histories: pagination.histories.concat(data.histories),
+        hasNextPage: data.hasNextPage
       });
     }
   };
-
   return (
     <HistoryBlock>
       <InfiniteScrollBlock
         pageStart={0}
         loadMore={loadFunc}
-        hasMore={pagination.hasNextPage}
+        hasMore={hasNextPage}
         loader={<Loader key="1" active inline="centered" size="small" />}
       >
-        {pagination.histories.map(history => (
+        {histories.map(history => (
           <HistoryItem key={history._id} history={history} />
         ))}
       </InfiniteScrollBlock>
