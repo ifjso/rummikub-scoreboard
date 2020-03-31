@@ -16,7 +16,7 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
   width: 100vw;
 `;
 
-const History = () => {
+const HistoryList = () => {
   const [pagination, setPagination] = useState({
     histories: [],
     hasNextPage: true
@@ -74,4 +74,4 @@ const History = () => {
   );
 };
 
-export default React.memo(History);
+export default React.memo(HistoryList);
