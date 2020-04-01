@@ -9,11 +9,10 @@ const ScoreBlock = styled.div`
   width: 26vw;
   height: 100%;
   display: flex;
-  color: white;
   flex-direction: column;
-  align-content: space-between;
-  justify-content: center;
-  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
 
   h1 {
     margin: 0;
@@ -23,7 +22,7 @@ const ScoreBlock = styled.div`
   }
 `;
 
-const Wrapper = styled.div`
+const UserWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,10 +98,10 @@ const Score = ({ reversed = false, owner }) => {
       <Button onClick={() => onClick(1)}>
         <Icon name="plus" size="small" color="grey" />
       </Button>
-      <Wrapper>
+      <UserWrapper>
         <Profile reversed={reversed} user={user} />
         <h1>{user.score}</h1>
-      </Wrapper>
+      </UserWrapper>
       <Button onClick={() => onClick(-1)}>
         <Icon name="minus" size="small" color="grey" />
       </Button>
