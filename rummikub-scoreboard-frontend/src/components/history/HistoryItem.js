@@ -3,11 +3,9 @@ import styled from 'styled-components';
 import TimeAgo from 'react-timeago';
 import koreaStrings from 'react-timeago/lib/language-strings/ko';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
+import { getEmoji } from '../../helpers/emoji';
 
 const formatter = buildFormatter(koreaStrings);
-
-const emojis = ['🌝', '🎉', '🎈', '🍡', '🌟', '🌪', '😧', '⛈', '👻', '💩'];
-const getEmoji = value => emojis[value];
 
 const HistoryBox = styled.div`
   margin-bottom: 2vh;
