@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
-import randomInt from 'random-int';
 import Button from '../commons/Button';
 import { readUser, updateUser } from '../../lib/api/users';
+import { getEmojiType } from '../../helpers/emoji';
 
 const ScoreBlock = styled.div`
   width: 26vw;
@@ -84,7 +84,7 @@ const Score = ({ reversed = false, owner }) => {
       const { data } = await updateUser({
         owner,
         score: user.score + value,
-        emojiType: value > 0 ? randomInt(4) : randomInt(5, 9)
+        emojiType: getEmojiType(value)
       });
 
       if (!isCancelled.current) {
