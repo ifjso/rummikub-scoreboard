@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
-import { Loader } from 'semantic-ui-react';
 import Responsive from '../commons/Responsive';
+import Loader from '../commons/Loader';
 import { listHistories } from '../../lib/api/histories';
 import HistoryItem from './HistoryItem';
 
@@ -19,42 +19,50 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
 const HistoryList = () => {
   const [pagination, setPagination] = useState({
     histories: [],
-    hasNextPage: true
+    hasNextPage: true,
+    isLoaded: false
   });
   const { histories, hasNextPage } = pagination;
   const isCancelled = useRef(false);
 
-  useEffect(
-    () => () => {
-      isCancelled.current = true;
-    },
-    []
-  );
-
-  const loadFunc = async page => {
+  const loadFunc = useCallback(async page => {
     const { data } = await listHistories({ page });
     if (!isCancelled.current) {
-      setPagination({
-        histories: pagination.histories.concat(data.histories),
-        hasNextPage: data.hasNextPage
-      });
+      setPagination(prevPagination => ({
+        ...prevPagination,
+        histories: prevPagination.histories.concat(data.histories),
+        hasNextPage: data.hasNextPage,
+        isLoaded: true
+      }));
     }
-  };
-  return (
+  }, []);
+
+  useEffect(() => {
+    loadFunc(1);
+    return () => {
+      isCancelled.current = true;
+    };
+  }, [loadFunc]);
+
+  const infiniteScrollloader = (
+    <Loader key="1" type="Oval" color="white" width={25} height={25} inline />
+  );
+
+  return pagination.isLoaded ? (
     <HistoryBlock>
       <InfiniteScrollBlock
-        pageStart={0}
+        pageStart={1}
         loadMore={loadFunc}
         hasMore={hasNextPage}
-        loader={
-          <Loader key="1" active inline="centered" size="small" inverted />
-        }
+        loader={infiniteScrollloader}
       >
         {histories.map(history => (
           <HistoryItem key={history._id} history={history} />
         ))}
       </InfiniteScrollBlock>
     </HistoryBlock>
+  ) : (
+    <Loader type="Hearts" color="#bf0303" />
   );
 };
 
