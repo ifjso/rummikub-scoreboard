@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import Button from '../commons/Button';
-import { readUser, updateUser } from '../../lib/api/users';
-import { getEmojiType } from '../../helpers/emoji';
 
 const ScoreBlock = styled.div`
   width: 26vw;
@@ -59,54 +57,18 @@ const Profile = ({ reversed, user: { name, picture } }) => (
   </ProfileBlock>
 );
 
-const Score = ({ reversed = false, owner }) => {
-  const [user, setUser] = useState({});
-  const isCancelled = useRef(false);
-
-  useEffect(() => {
-    const readUserFunc = async () => {
-      const { data } = await readUser(owner);
-      if (!isCancelled.current) {
-        setUser(data);
-      }
-    };
-
-    readUserFunc();
-
-    return () => {
-      isCancelled.current = true;
-    };
-  }, [owner]);
-
-  const onClick = useCallback(
-    async value => {
-      const { data } = await updateUser({
-        owner,
-        score: user.score + value,
-        emojiType: getEmojiType(value)
-      });
-
-      if (!isCancelled.current) {
-        setUser(data);
-      }
-    },
-    [owner, user]
-  );
-
-  return (
-    <ScoreBlock>
-      <Button onClick={() => onClick(1)}>
-        <Icon name="plus" size="small" color="grey" />
-      </Button>
-      <UserWrapper>
-        <Profile reversed={reversed} user={user} />
-        <h1>{user.score}</h1>
-      </UserWrapper>
-      <Button onClick={() => onClick(-1)}>
-        <Icon name="minus" size="small" color="grey" />
-      </Button>
-    </ScoreBlock>
-  );
-};
-
-export default Score;
+const Score = ({ reversed = false, user, onClick = i => i }) => (
+  <ScoreBlock>
+    <Button onClick={() => onClick(user, 1)}>
+      <Icon name="plus" size="small" color="grey" />
+    </Button>
+    <UserWrapper>
+      <Profile reversed={reversed} user={user} />
+      <h1>{user.score}</h1>
+    </UserWrapper>
+    <Button onClick={() => onClick(user, -1)}>
+      <Icon name="minus" size="small" color="grey" />
+    </Button>
+  </ScoreBlock>
+);
+export default React.memo(Score);

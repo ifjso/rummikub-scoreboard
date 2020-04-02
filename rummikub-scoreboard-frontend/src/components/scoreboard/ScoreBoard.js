@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
+import { Loader } from 'semantic-ui-react';
 import Responsive from '../commons/Responsive';
 import Score from './Score';
+import { readUser, updateUser } from '../../lib/api/users';
+import { getEmojiType } from '../../helpers/emoji';
 
 const ScoreBoardBlock = styled.div`
   width: 100vw;
@@ -30,14 +33,55 @@ const StyledSpan = styled.span`
   color: white;
 `;
 
-const ScoreBoard = () => (
-  <ScoreBoardBlock>
-    <Wrapper>
-      <Score reversed={false} owner={1} />
-      <StyledSpan>:</StyledSpan>
-      <Score reversed owner={2} />
-    </Wrapper>
-  </ScoreBoardBlock>
-);
+const ScoreBoard = () => {
+  const isCancelled = useRef(false);
+  const [state, setState] = useState({ isLoaded: false, users: [] });
 
-export default ScoreBoard;
+  useEffect(() => {
+    const readUsersFunc = async () => {
+      const users = await Promise.all([readUser(1), readUser(2)]);
+      if (!isCancelled.current) {
+        setState(prevState => ({
+          ...prevState,
+          isLoaded: true,
+          users: [users[0].data, users[1].data]
+        }));
+      }
+    };
+
+    readUsersFunc();
+
+    return () => {
+      isCancelled.current = true;
+    };
+  }, []);
+
+  const onClick = useCallback(async (user, value) => {
+    const { data } = await updateUser({
+      owner: user.owner,
+      score: user.score + value,
+      emojiType: getEmojiType(value)
+    });
+
+    if (!isCancelled.current) {
+      setState(prevState => ({
+        ...prevState,
+        users: prevState.users.map(u => (data.owner === u.owner ? data : u))
+      }));
+    }
+  }, []);
+
+  return state.isLoaded ? (
+    <ScoreBoardBlock>
+      <Wrapper>
+        <Score reversed={false} user={state.users[0]} onClick={onClick} />
+        <StyledSpan>:</StyledSpan>
+        <Score reversed user={state.users[1]} onClick={onClick} />
+      </Wrapper>
+    </ScoreBoardBlock>
+  ) : (
+    <Loader size="huge" active inverted />
+  );
+};
+
+export default React.memo(ScoreBoard);
