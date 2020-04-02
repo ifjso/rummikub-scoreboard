@@ -46,7 +46,9 @@ const HistoryList = () => {
         pageStart={0}
         loadMore={loadFunc}
         hasMore={hasNextPage}
-        loader={<Loader key="1" active inline="centered" size="small" />}
+        loader={
+          <Loader key="1" active inline="centered" size="small" inverted />
+        }
       >
         {histories.map(history => (
           <HistoryItem key={history._id} history={history} />
