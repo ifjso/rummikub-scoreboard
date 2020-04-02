@@ -44,7 +44,7 @@ const HistoryList = () => {
     };
   }, [loadFunc]);
 
-  const infiniteScrollloader = (
+  const InfiniteScrollLoader = (
     <Loader key="1" type="Oval" color="white" width={25} height={25} inline />
   );
 
@@ -54,7 +54,7 @@ const HistoryList = () => {
         pageStart={1}
         loadMore={loadFunc}
         hasMore={hasNextPage}
-        loader={infiniteScrollloader}
+        loader={InfiniteScrollLoader}
       >
         {histories.map(history => (
           <HistoryItem key={history._id} history={history} />
