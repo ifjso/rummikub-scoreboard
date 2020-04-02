@@ -15,7 +15,7 @@ const ScoreBoardBlock = styled.div`
   flex-wrap: wrap;
 `;
 
-const Wrapper = styled(Responsive)`
+const ScoreWrapper = styled(Responsive)`
   width: 86vw;
   height: 90vw;
   padding: 2vw;
@@ -73,11 +73,11 @@ const ScoreBoard = () => {
 
   return state.isLoaded ? (
     <ScoreBoardBlock>
-      <Wrapper>
+      <ScoreWrapper>
         <Score reversed={false} user={state.users[0]} onClick={onClick} />
         <StyledSpan>:</StyledSpan>
         <Score reversed user={state.users[1]} onClick={onClick} />
-      </Wrapper>
+      </ScoreWrapper>
     </ScoreBoardBlock>
   ) : (
     <Loader type="Hearts" color="#bf0303" />
