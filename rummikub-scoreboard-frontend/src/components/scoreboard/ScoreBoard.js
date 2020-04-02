@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
-import { Loader } from 'semantic-ui-react';
 import Responsive from '../commons/Responsive';
+import Loader from '../commons/Loader';
 import Score from './Score';
 import { readUser, updateUser } from '../../lib/api/users';
 import { getEmojiType } from '../../helpers/emoji';
@@ -80,7 +80,7 @@ const ScoreBoard = () => {
       </Wrapper>
     </ScoreBoardBlock>
   ) : (
-    <Loader size="huge" active inverted />
+    <Loader type="Hearts" color="#bf0303" />
   );
 };
 
