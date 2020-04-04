@@ -35,7 +35,7 @@ const StyledSpan = styled.span`
 
 const ScoreBoard = () => {
   const isCancelled = useRef(false);
-  const [state, setState] = useState({ isLoaded: false, users: [] });
+  const [state, setState] = useState({ isLoading: true, users: [] });
 
   useEffect(() => {
     const readUsersFunc = async () => {
@@ -43,7 +43,7 @@ const ScoreBoard = () => {
       if (!isCancelled.current) {
         setState(prevState => ({
           ...prevState,
-          isLoaded: true,
+          isLoading: false,
           users: [users[0].data, users[1].data]
         }));
       }
@@ -71,16 +71,16 @@ const ScoreBoard = () => {
     }
   }, []);
 
-  return state.isLoaded ? (
+  return state.isLoading ? (
+    <Loader type="Hearts" color="#bf0303" />
+  ) : (
     <ScoreBoardBlock>
       <ScoreWrapper>
-        <Score reversed={false} user={state.users[0]} onClick={onClick} />
+        <Score user={state.users[0]} isReversed={false} onClick={onClick} />
         <StyledSpan>:</StyledSpan>
-        <Score reversed user={state.users[1]} onClick={onClick} />
+        <Score user={state.users[1]} isReversed onClick={onClick} />
       </ScoreWrapper>
     </ScoreBoardBlock>
-  ) : (
-    <Loader type="Hearts" color="#bf0303" />
   );
 };
 

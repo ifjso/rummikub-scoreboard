@@ -33,8 +33,8 @@ const ProfileBlock = styled.div`
   width: 100%;
   display: flex;
 
-  ${({ reversed }) =>
-    reversed &&
+  ${({ isReversed }) =>
+    isReversed &&
     css`
       flex-direction: row-reverse;
     `}
@@ -58,14 +58,19 @@ const Profile = ({ reversed, user: { name, picture } }) => (
   </ProfileBlock>
 );
 
-const Score = ({ reversed = false, user, onClick = i => i }) => (
+const Score = ({
+  user,
+  isReversed = false,
+  isLoading = false,
+  onClick = i => i
+}) => (
   <ScoreBlock>
     <Button onClick={() => onClick(user, 1)}>
       <Icon name="plus" size="small" color="grey" />
     </Button>
     <UserWrapper>
-      <Profile reversed={reversed} user={user} />
-      <Shimmer>{user.score}</Shimmer>
+      <Profile isReversed={isReversed} user={user} />
+      <Shimmer isLoading={isLoading}>{user.score}</Shimmer>
     </UserWrapper>
     <Button onClick={() => onClick(user, -1)}>
       <Icon name="minus" size="small" color="grey" />

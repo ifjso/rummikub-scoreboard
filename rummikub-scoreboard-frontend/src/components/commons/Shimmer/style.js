@@ -2,8 +2,8 @@ import { css } from 'styled-components';
 
 export default css`
   color: white;
-  ${({ active }) =>
-    active &&
+  ${({ isLoading }) =>
+    isLoading &&
     css`
       color: rgba(255, 255, 255, 0.5);
       background-color: #222;

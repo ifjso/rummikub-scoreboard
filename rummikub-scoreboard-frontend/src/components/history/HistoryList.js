@@ -20,7 +20,7 @@ const HistoryList = () => {
   const [pagination, setPagination] = useState({
     histories: [],
     hasNextPage: true,
-    isLoaded: false
+    isLoading: true
   });
   const { histories, hasNextPage } = pagination;
   const isCancelled = useRef(false);
@@ -32,7 +32,7 @@ const HistoryList = () => {
         ...prevPagination,
         histories: prevPagination.histories.concat(data.histories),
         hasNextPage: data.hasNextPage,
-        isLoaded: true
+        isLoading: false
       }));
     }
   }, []);
@@ -48,7 +48,9 @@ const HistoryList = () => {
     <Loader key="1" type="Oval" color="white" width={25} height={25} inline />
   );
 
-  return pagination.isLoaded ? (
+  return pagination.isLoading ? (
+    <Loader type="Hearts" color="#bf0303" />
+  ) : (
     <HistoryBlock>
       <InfiniteScrollBlock
         pageStart={1}
@@ -61,8 +63,6 @@ const HistoryList = () => {
         ))}
       </InfiniteScrollBlock>
     </HistoryBlock>
-  ) : (
-    <Loader type="Hearts" color="#bf0303" />
   );
 };
 
