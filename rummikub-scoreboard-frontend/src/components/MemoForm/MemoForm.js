@@ -9,17 +9,20 @@ const MemoForm = React.forwardRef(({ onSubmit = i => i }, ref) => {
     []
   );
 
-  const onMemoFormSubmit = useCallback(() => {
-    if (!form.memo) {
-      setForm(prevForm => ({ ...prevForm, error: true }));
-      return;
-    }
+  const onMemoFormSubmit = useCallback(
+    memo => {
+      if (!memo) {
+        setForm(prevForm => ({ ...prevForm, error: true }));
+        return;
+      }
 
-    onSubmit(form.memo);
-  }, [form.memo, onSubmit]);
+      onSubmit(memo);
+    },
+    [onSubmit]
+  );
 
   return (
-    <Form error={form.error} onSubmit={onMemoFormSubmit}>
+    <Form error={form.error} onSubmit={() => onMemoFormSubmit(form.memo)}>
       <Form.Field error={form.error}>
         <Input
           ref={ref}
