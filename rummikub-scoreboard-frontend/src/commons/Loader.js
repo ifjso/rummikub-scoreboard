@@ -1,6 +1,6 @@
-import React from 'react';
-import Loader from 'react-loader-spinner';
-import styled, { css } from 'styled-components';
+import React from './react';
+import Loader from './react-loader-spinner';
+import styled, { css } from './styled-components';
 
 const StyledLoader = styled(Loader)`
   position: absolute;

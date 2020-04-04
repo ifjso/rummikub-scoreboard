@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
-import Button from '../commons/Button';
-import Shimmer from '../commons/Shimmer';
+import Button from '../../commons/Button';
+import Shimmer from '../../commons/Shimmer';
 
 const ScoreBlock = styled.div`
   width: 26vw;
