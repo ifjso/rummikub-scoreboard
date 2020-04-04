@@ -86,7 +86,7 @@ const Score = ({
     <ButtonWithLoader
       name="plus"
       isLoading={isLoading}
-      onClick={() => onClick(index, user, 1)}
+      onClick={() => onClick(index, 1)}
     />
     <UserWrapper>
       <Profile isReversed={isReversed} user={user} />
@@ -95,7 +95,7 @@ const Score = ({
     <ButtonWithLoader
       name="minus"
       isLoading={isLoading}
-      onClick={() => onClick(index, user, -1)}
+      onClick={() => onClick(index, -1)}
     />
   </ScoreBlock>
 );

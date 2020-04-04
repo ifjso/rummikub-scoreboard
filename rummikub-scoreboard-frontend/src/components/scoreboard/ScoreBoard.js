@@ -4,6 +4,7 @@ import produce from 'immer';
 import Responsive from '../../commons/Responsive';
 import Loader from '../../commons/Loader';
 import InputModal from '../../commons/InputModal';
+import MemoForm from '../MemoForm/MemoForm';
 import Score from './Score';
 import { readUser, updateUser } from '../../lib/api/users';
 import { getEmojiType } from '../../helpers/emoji';
@@ -37,9 +38,10 @@ const StyledSpan = styled.span`
 
 const ScoreBoard = () => {
   const isCancelled = useRef(false);
+  const memoInputRef = useRef(null);
   const [state, setState] = useState({
     isLoading: true,
-    isInputting: false,
+    form: { selectedIndex: 0, value: 0, isInputting: false },
     scores: [
       { user: null, isLoading: false },
       { user: null, isLoading: false }
@@ -67,35 +69,53 @@ const ScoreBoard = () => {
     };
   }, []);
 
-  const onClick = useCallback(async (index, user, value) => {
+  const onClick = useCallback(async (index, value) => {
     setState(
       produce(baseState => {
-        baseState.scores[index].isLoading = true;
-        baseState.isInputting = true;
+        baseState.form.selectedIndex = index;
+        baseState.form.value = value;
+        baseState.form.isInputting = true;
       })
     );
-
-    const { data } = await updateUser({
-      owner: user.owner,
-      score: user.score + value,
-      emojiType: getEmojiType(value)
-    });
-
-    if (!isCancelled.current) {
-      setState(
-        produce(baseState => {
-          baseState.scores[index].isLoading = false;
-          baseState.scores[index].user = data;
-        })
-      );
-    }
   }, []);
 
+  const onSubmit = useCallback(
+    async memo => {
+      const { selectedIndex, value } = state.form;
+      const { user } = state.scores[selectedIndex];
+
+      setState(
+        produce(baseState => {
+          baseState.scores[selectedIndex].isLoading = true;
+          baseState.form.isInputting = false;
+        })
+      );
+
+      const { data } = await updateUser({
+        owner: user.owner,
+        score: user.score + value,
+        emojiType: getEmojiType(value),
+        memo
+      });
+
+      if (!isCancelled.current) {
+        setState(
+          produce(baseState => {
+            baseState.scores[selectedIndex].user = data;
+            baseState.scores[selectedIndex].isLoading = false;
+          })
+        );
+      }
+    },
+    [state.form, state.scores]
+  );
+
+  const onModalMount = useCallback(() => memoInputRef.current.focus(), []);
   const onModalClose = useCallback(
     () =>
       setState(
         produce(baseState => {
-          baseState.isInputting = false;
+          baseState.form.isInputting = false;
         })
       ),
     []
@@ -124,12 +144,13 @@ const ScoreBoard = () => {
       </ScoreWrapper>
 
       <InputModal
-        open={state.isInputting}
+        open={state.form.isInputting}
         title="무슨 일이 있었는지 기록해 보아요."
-        error
+        onMount={onModalMount}
         onClose={onModalClose}
-        // onSubmit
-      />
+      >
+        <MemoForm ref={memoInputRef} onSubmit={onSubmit} />
+      </InputModal>
     </ScoreBoardBlock>
   );
 };
