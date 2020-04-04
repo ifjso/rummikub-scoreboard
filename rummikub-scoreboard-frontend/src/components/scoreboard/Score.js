@@ -65,15 +65,27 @@ const Score = ({
   onClick = i => i
 }) => (
   <ScoreBlock>
-    <Button onClick={() => onClick(1)}>
-      <Icon name="plus" size="small" color="grey" />
+    <Button onClick={() => onClick(1)} disabled={isLoading}>
+      <Icon
+        name="plus"
+        size="small"
+        color="grey"
+        disabled={isLoading}
+        loading={isLoading}
+      />
     </Button>
     <UserWrapper>
       <Profile isReversed={isReversed} user={user} />
       <Shimmer isLoading={isLoading}>{user.score}</Shimmer>
     </UserWrapper>
-    <Button onClick={() => onClick(-1)}>
-      <Icon name="minus" size="small" color="grey" />
+    <Button onClick={() => onClick(-1)} disabled={isLoading}>
+      <Icon
+        name="minus"
+        size="small"
+        color="grey"
+        disabled={isLoading}
+        loading={isLoading}
+      />
     </Button>
   </ScoreBlock>
 );
