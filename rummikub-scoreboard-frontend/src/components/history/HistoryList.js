@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React, { useState, useEffect, useCallback, useRef } from './react';
-import styled from './styled-components';
-import InfiniteScroll from './react-infinite-scroller';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import styled from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroller';
 import Responsive from '../../commons/Responsive';
 import Loader from '../../commons/Loader';
 import { listHistories } from '../../lib/api/histories';

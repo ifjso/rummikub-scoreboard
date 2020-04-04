@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from './react';
-import { Link, withRouter } from './react-router-dom';
-import { Menu, Icon } from './semantic-ui-react';
+import React, { useState, useCallback } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { Menu, Icon } from 'semantic-ui-react';
 
 const TopMenu = ({ location: { pathname } }) => {
   const [active, setActive] = useState(pathname);
