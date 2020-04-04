@@ -1,5 +1,5 @@
 import React from 'react';
-import HistoryList from '../components/history/HistoryList';
+import HistoryList from '../components/History/HistoryList';
 
 const HistoryListContainer = () => <HistoryList />;
 

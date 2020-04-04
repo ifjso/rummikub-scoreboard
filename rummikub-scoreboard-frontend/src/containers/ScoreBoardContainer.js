@@ -1,5 +1,5 @@
 import React from 'react';
-import ScoreBoard from '../components/scoreboard/ScoreBoard';
+import ScoreBoard from '../components/Scoreboard/ScoreBoard';
 
 const ScoreBoardContainer = () => <ScoreBoard />;
 
