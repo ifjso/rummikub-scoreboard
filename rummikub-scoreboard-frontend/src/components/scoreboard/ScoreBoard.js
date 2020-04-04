@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import produce from 'immer';
-import Responsive from '../commons/Responsive';
-import Loader from '../commons/Loader';
+import Responsive from '../../commons/Responsive';
+import Loader from '../../commons/Loader';
+import InputModal from '../../commons/InputModal';
 import Score from './Score';
 import { readUser, updateUser } from '../../lib/api/users';
 import { getEmojiType } from '../../helpers/emoji';
@@ -38,6 +39,7 @@ const ScoreBoard = () => {
   const isCancelled = useRef(false);
   const [state, setState] = useState({
     isLoading: true,
+    isInputting: false,
     scores: [
       { user: null, isLoading: false },
       { user: null, isLoading: false }
@@ -65,29 +67,37 @@ const ScoreBoard = () => {
     };
   }, []);
 
-  const onClick = useCallback(
-    (index, user) => async value => {
+  const onClick = useCallback(async (index, user, value) => {
+    setState(
+      produce(baseState => {
+        baseState.scores[index].isLoading = true;
+        baseState.isInputting = true;
+      })
+    );
+
+    const { data } = await updateUser({
+      owner: user.owner,
+      score: user.score + value,
+      emojiType: getEmojiType(value)
+    });
+
+    if (!isCancelled.current) {
       setState(
         produce(baseState => {
-          baseState.scores[index].isLoading = true;
+          baseState.scores[index].isLoading = false;
+          baseState.scores[index].user = data;
         })
       );
+    }
+  }, []);
 
-      const { data } = await updateUser({
-        owner: user.owner,
-        score: user.score + value,
-        emojiType: getEmojiType(value)
-      });
-
-      if (!isCancelled.current) {
-        setState(
-          produce(baseState => {
-            baseState.scores[index].isLoading = false;
-            baseState.scores[index].user = data;
-          })
-        );
-      }
-    },
+  const onModalClose = useCallback(
+    () =>
+      setState(
+        produce(baseState => {
+          baseState.isInputting = false;
+        })
+      ),
     []
   );
 
@@ -97,19 +107,29 @@ const ScoreBoard = () => {
     <ScoreBoardBlock>
       <ScoreWrapper>
         <Score
+          index={0}
           user={state.scores[0].user}
           isReversed={false}
           isLoading={state.scores[0].isLoading}
-          onClick={onClick(0, state.scores[0].user)}
+          onClick={onClick}
         />
         <StyledSpan>:</StyledSpan>
         <Score
+          index={1}
           user={state.scores[1].user}
           isReversed
           isLoading={state.scores[1].isLoading}
-          onClick={onClick(1, state.scores[1].user)}
+          onClick={onClick}
         />
       </ScoreWrapper>
+
+      <InputModal
+        open={state.isInputting}
+        title="무슨 일이 있었는지 기록해 보아요."
+        error
+        onClose={onModalClose}
+        // onSubmit
+      />
     </ScoreBoardBlock>
   );
 };
