@@ -76,6 +76,7 @@ const Profile = ({ isReversed, user: { name, picture } }) => (
 );
 
 const Score = ({
+  index,
   user,
   isReversed = false,
   isLoading = false,
@@ -85,7 +86,7 @@ const Score = ({
     <ButtonWithLoader
       name="plus"
       isLoading={isLoading}
-      onClick={() => onClick(1)}
+      onClick={() => onClick(index, user, 1)}
     />
     <UserWrapper>
       <Profile isReversed={isReversed} user={user} />
@@ -94,8 +95,9 @@ const Score = ({
     <ButtonWithLoader
       name="minus"
       isLoading={isLoading}
-      onClick={() => onClick(-1)}
+      onClick={() => onClick(index, user, -1)}
     />
   </ScoreBlock>
 );
+
 export default React.memo(Score);
