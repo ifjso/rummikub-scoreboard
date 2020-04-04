@@ -7,6 +7,10 @@
     "implicit-arrow-linebreak": "off",
     "import/prefer-default-export": "off",
     "no-confusing-arrow": "off",
+    "no-param-reassign": [
+      "error",
+      { "props": true, "ignorePropertyModificationsFor": ["baseState"] }
+    ],
     "no-return-await": "off",
     "no-underscore-dangle": "off",
     "object-curly-newline": "off",
