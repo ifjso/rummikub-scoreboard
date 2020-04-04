@@ -51,6 +51,23 @@ const Nickname = styled.span`
   line-height: 2em;
 `;
 
+const ButtonWithLoader = ({
+  name,
+  size = 'small',
+  isLoading = false,
+  onClick = i => i
+}) => (
+  <Button onClick={onClick} disabled={isLoading}>
+    <Icon
+      name={name}
+      size={size}
+      color="grey"
+      disabled={isLoading}
+      loading={isLoading}
+    />
+  </Button>
+);
+
 const Profile = ({ reversed, user: { name, picture } }) => (
   <ProfileBlock reversed={reversed}>
     <Picture reversed={reversed} picture={picture} />
@@ -65,28 +82,20 @@ const Score = ({
   onClick = i => i
 }) => (
   <ScoreBlock>
-    <Button onClick={() => onClick(1)} disabled={isLoading}>
-      <Icon
-        name="plus"
-        size="small"
-        color="grey"
-        disabled={isLoading}
-        loading={isLoading}
-      />
-    </Button>
+    <ButtonWithLoader
+      name="plus"
+      isLoading={isLoading}
+      onClick={() => onClick(1)}
+    />
     <UserWrapper>
       <Profile isReversed={isReversed} user={user} />
       <Shimmer isLoading={isLoading}>{user.score}</Shimmer>
     </UserWrapper>
-    <Button onClick={() => onClick(-1)} disabled={isLoading}>
-      <Icon
-        name="minus"
-        size="small"
-        color="grey"
-        disabled={isLoading}
-        loading={isLoading}
-      />
-    </Button>
+    <ButtonWithLoader
+      name="minus"
+      isLoading={isLoading}
+      onClick={() => onClick(-1)}
+    />
   </ScoreBlock>
 );
 export default React.memo(Score);
