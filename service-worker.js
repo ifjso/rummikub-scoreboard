@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/rummikub-scoreboard/precache-manifest.e08efaaad30df4f2b2d95fed65330fb8.js"
+  "/rummikub-scoreboard/precache-manifest.e1436c157c56cce83c69fcf630581c42.js"
 );
 
 self.addEventListener('message', (event) => {
