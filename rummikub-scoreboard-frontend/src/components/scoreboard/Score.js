@@ -68,9 +68,9 @@ const ButtonWithLoader = ({
   </Button>
 );
 
-const Profile = ({ reversed, user: { name, picture } }) => (
-  <ProfileBlock reversed={reversed}>
-    <Picture reversed={reversed} picture={picture} />
+const Profile = ({ isReversed, user: { name, picture } }) => (
+  <ProfileBlock isReversed={isReversed}>
+    <Picture isReversed={isReversed} picture={picture} />
     <Nickname>{name}</Nickname>
   </ProfileBlock>
 );
