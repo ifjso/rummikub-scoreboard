@@ -16,6 +16,7 @@ export default css`
 
       --shimmer-size: ${({ shimmerSize = 0.3 }) => `${shimmerSize}em`};
       background-size: var(--shimmer-size) auto;
+      -webkit-background-size: var(--shimmer-size) auto;
       background-repeat: no-repeat;
       background-clip: text;
       -webkit-background-clip: text;
