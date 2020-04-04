@@ -65,14 +65,14 @@ const Score = ({
   onClick = i => i
 }) => (
   <ScoreBlock>
-    <Button onClick={() => onClick(user, 1)}>
+    <Button onClick={() => onClick(1)}>
       <Icon name="plus" size="small" color="grey" />
     </Button>
     <UserWrapper>
       <Profile isReversed={isReversed} user={user} />
       <Shimmer isLoading={isLoading}>{user.score}</Shimmer>
     </UserWrapper>
-    <Button onClick={() => onClick(user, -1)}>
+    <Button onClick={() => onClick(-1)}>
       <Icon name="minus" size="small" color="grey" />
     </Button>
   </ScoreBlock>
