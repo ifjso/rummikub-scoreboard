@@ -41,7 +41,10 @@ const ProfileBlock = styled.div`
 `;
 
 const Picture = styled.div`
-  width: 28%;
+  width: 40%;
+  background-image: ${({ picture }) => `url(${picture})`};
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Nickname = styled.span`
