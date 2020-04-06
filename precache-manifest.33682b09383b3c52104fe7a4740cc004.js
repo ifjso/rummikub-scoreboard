@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d54072eb63735b31b3d48b18e31875dd",
+    "revision": "9a622ce673afd2c81b2c4b5249207bc8",
     "url": "/rummikub-scoreboard/index.html"
   },
   {
-    "revision": "b3197a8f59809cdd66ad",
+    "revision": "944d7aa5342a0c93fd8d",
     "url": "/rummikub-scoreboard/static/css/main.d6f95b44.chunk.css"
   },
   {
-    "revision": "3cb2c3ab677a1812e12c",
-    "url": "/rummikub-scoreboard/static/js/2.29bdc255.chunk.js"
+    "revision": "962648bf657d40f04675",
+    "url": "/rummikub-scoreboard/static/js/2.7a663cb7.chunk.js"
   },
   {
     "revision": "967c3aa677d48917bda81b3b2ff2693c",
-    "url": "/rummikub-scoreboard/static/js/2.29bdc255.chunk.js.LICENSE.txt"
+    "url": "/rummikub-scoreboard/static/js/2.7a663cb7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b3197a8f59809cdd66ad",
-    "url": "/rummikub-scoreboard/static/js/main.b25eb868.chunk.js"
+    "revision": "944d7aa5342a0c93fd8d",
+    "url": "/rummikub-scoreboard/static/js/main.f8aac02e.chunk.js"
   },
   {
     "revision": "f634147539c2ea1947ef",
