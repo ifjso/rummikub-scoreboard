@@ -1,9 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
-import LazyLoad from 'react-lazyload';
+import Img from 'react-image';
 import Button from '../../commons/Button';
 import Shimmer from '../../commons/Shimmer';
+import Loader from '../../commons/Loader';
 
 const ScoreBlock = styled.div`
   width: 26vw;
@@ -43,12 +44,12 @@ const ProfileBlock = styled.div`
 
 const Picture = styled.div`
   width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   > img {
     width: 100%;
   }
-  /* background-image: ${({ picture }) => `url(${picture})`}; */
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
 `;
 
 const Nickname = styled.span`
@@ -78,9 +79,13 @@ const ButtonWithLoader = ({
 const Profile = ({ isReversed, user: { name, picture } }) => (
   <ProfileBlock isReversed={isReversed}>
     <Picture isReversed={isReversed}>
-      <LazyLoad once>
-        <img src={picture} alt="나의 사진" />
-      </LazyLoad>
+      <Img
+        src={picture}
+        alt="me"
+        loader={
+          <Loader type="ThreeDots" width={24} height={24} color="grey" inline />
+        }
+      />
     </Picture>
     <Nickname>{name}</Nickname>
   </ProfileBlock>
