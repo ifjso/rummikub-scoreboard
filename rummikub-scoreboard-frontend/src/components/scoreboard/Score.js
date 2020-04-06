@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
+import LazyLoad from 'react-lazyload';
 import Button from '../../commons/Button';
 import Shimmer from '../../commons/Shimmer';
 
@@ -42,9 +43,12 @@ const ProfileBlock = styled.div`
 
 const Picture = styled.div`
   width: 40%;
-  background-image: ${({ picture }) => `url(${picture})`};
-  background-repeat: no-repeat;
-  background-size: cover;
+  > img {
+    width: 100%;
+  }
+  /* background-image: ${({ picture }) => `url(${picture})`}; */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
 `;
 
 const Nickname = styled.span`
@@ -73,7 +77,11 @@ const ButtonWithLoader = ({
 
 const Profile = ({ isReversed, user: { name, picture } }) => (
   <ProfileBlock isReversed={isReversed}>
-    <Picture isReversed={isReversed} picture={picture} />
+    <Picture isReversed={isReversed}>
+      <LazyLoad once>
+        <img src={picture} alt="나의 사진" />
+      </LazyLoad>
+    </Picture>
     <Nickname>{name}</Nickname>
   </ProfileBlock>
 );
