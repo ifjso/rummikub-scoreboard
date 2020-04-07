@@ -19,7 +19,7 @@ const histories = (state = initialState, action) => {
         ...state,
         histories: state.histories.concat(action.histories),
         hasNextPage: action.hasNextPage,
-        isLoading: true
+        isLoading: false
       };
     default:
       return state;
