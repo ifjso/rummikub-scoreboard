@@ -49,6 +49,7 @@ const Picture = styled.div`
   align-items: center;
   > img {
     width: 100%;
+    clip-path: circle(40% at center);
   }
 `;
 
