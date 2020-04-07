@@ -1,6 +1,6 @@
 import React from 'react';
-import HistoryListContainer from '../containers/HistoryListContainer';
+import HistoriesContainer from '../containers/HistoriesContainer';
 
-const HistoryPage = () => <HistoryListContainer />;
+const HistoryPage = () => <HistoriesContainer />;
 
 export default HistoryPage;

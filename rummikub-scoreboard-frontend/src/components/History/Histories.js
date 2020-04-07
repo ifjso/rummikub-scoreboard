@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Responsive from '../../commons/Responsive';
 import Loader from '../../commons/Loader';
 import { listHistories } from '../../lib/api/histories';
-import HistoryItem from './HistoryItem';
+import History from './History';
 
 const HistoryBlock = styled(Responsive)`
   width: 100vw;
@@ -16,7 +16,7 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
   width: 100vw;
 `;
 
-const HistoryList = () => {
+const Histories = () => {
   const [pagination, setPagination] = useState({
     histories: [],
     hasNextPage: true,
@@ -59,11 +59,11 @@ const HistoryList = () => {
         loader={InfiniteScrollLoader}
       >
         {histories.map(history => (
-          <HistoryItem key={history._id} history={history} />
+          <History key={history._id} history={history} />
         ))}
       </InfiniteScrollBlock>
     </HistoryBlock>
   );
 };
 
-export default React.memo(HistoryList);
+export default React.memo(Histories);

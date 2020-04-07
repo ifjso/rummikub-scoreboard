@@ -43,7 +43,7 @@ const ContentBlock = styled.div`
   color: grey;
 `;
 
-const HistoryItem = ({ history }) => (
+const History = ({ history }) => (
   <HistoryBox value={history.value}>
     <TopHistoryBlock>
       <Content size="1.3" bold>
@@ -76,4 +76,4 @@ const HistoryItem = ({ history }) => (
   </HistoryBox>
 );
 
-export default React.memo(HistoryItem);
+export default React.memo(History);
