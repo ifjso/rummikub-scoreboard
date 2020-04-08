@@ -16,26 +16,18 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
   width: 100vw;
 `;
 
-const Histories = () => {
-  const [pagination, setPagination] = useState({
-    histories: [],
-    hasNextPage: true,
-    isLoading: true
-  });
-  const { histories, hasNextPage } = pagination;
+const Histories = ({ histories, hasNextPage, isLoading, onLoad }) => {
   const isCancelled = useRef(false);
 
-  const loadFunc = useCallback(async page => {
-    const { data } = await listHistories({ page });
-    if (!isCancelled.current) {
-      setPagination(prevPagination => ({
-        ...prevPagination,
-        histories: prevPagination.histories.concat(data.histories),
-        hasNextPage: data.hasNextPage,
-        isLoading: false
-      }));
-    }
-  }, []);
+  const loadFunc = useCallback(
+    async page => {
+      const { data } = await listHistories({ page });
+      if (!isCancelled.current) {
+        onLoad(data);
+      }
+    },
+    [onLoad]
+  );
 
   useEffect(() => {
     loadFunc(1);
@@ -48,7 +40,7 @@ const Histories = () => {
     <Loader key="1" type="Oval" color="white" width={25} height={25} inline />
   );
 
-  return pagination.isLoading ? (
+  return isLoading ? (
     <Loader type="Hearts" color="#bf0303" />
   ) : (
     <HistoryBlock>
