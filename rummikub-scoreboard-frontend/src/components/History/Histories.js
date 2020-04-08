@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import Responsive from '../../commons/Responsive';
@@ -16,36 +16,23 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
   width: 100vw;
 `;
 
-const Histories = ({ histories, hasNextPage, isLoading, onLoad }) => {
-  const isCancelled = useRef(false);
-
+const Histories = ({ currentPage, histories, hasNextPage, onLoad }) => {
   const loadFunc = useCallback(
     async page => {
       const { data } = await listHistories({ page });
-      if (!isCancelled.current) {
-        onLoad(data);
-      }
+      onLoad({ ...data, currentPage: page });
     },
     [onLoad]
   );
-
-  useEffect(() => {
-    loadFunc(1);
-    return () => {
-      isCancelled.current = true;
-    };
-  }, [loadFunc]);
 
   const InfiniteScrollLoader = (
     <Loader key="1" type="Oval" color="white" width={25} height={25} inline />
   );
 
-  return isLoading ? (
-    <Loader type="Hearts" color="#bf0303" />
-  ) : (
+  return (
     <HistoryBlock>
       <InfiniteScrollBlock
-        pageStart={1}
+        pageStart={currentPage}
         loadMore={loadFunc}
         hasMore={hasNextPage}
         loader={InfiniteScrollLoader}

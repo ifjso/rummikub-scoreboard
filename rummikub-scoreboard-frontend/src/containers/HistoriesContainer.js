@@ -4,28 +4,28 @@ import { load } from '../modules/histories';
 import Histories from '../components/History/Histories';
 
 const HistoriesContainer = ({
+  currentPage,
   histories,
   hasNextPage,
-  isLoading,
   loadHistories
 }) => (
   <Histories
+    currentPage={currentPage}
     histories={histories}
     hasNextPage={hasNextPage}
-    isLoading={isLoading}
     onLoad={loadHistories}
   />
 );
 
 const mapStateToProps = ({ histories }) => ({
+  currentPage: histories.currentPage,
   histories: histories.histories,
-  hasNextPage: histories.hasNextPage,
-  isLoading: histories.isLoading
+  hasNextPage: histories.hasNextPage
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadHistories: ({ histories, hasNextPage }) =>
-    dispatch(load({ histories, hasNextPage }))
+  loadHistories: ({ currentPage, histories, hasNextPage }) =>
+    dispatch(load({ currentPage, histories, hasNextPage }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HistoriesContainer);
