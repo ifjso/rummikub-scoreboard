@@ -5,6 +5,21 @@ const CALCULATE = 'scoreboard/CALCULATE';
 const SAVE_START = 'scoreboard/SAVE_START';
 const SAVE_END = 'scoreboard/SAVE_END';
 
+export const readUsers = users => ({
+  type: READ_USERS,
+  users
+});
+
+export const calculate = (selectedIndex, value) => ({
+  type: CALCULATE,
+  selectedIndex,
+  value
+});
+
+export const saveStart = () => ({ type: SAVE_START });
+
+export const saveEnd = user => ({ type: SAVE_END, user });
+
 const initialState = {
   isLoading: true,
   form: { selectedIndex: 0, value: 0, isInputting: false },
