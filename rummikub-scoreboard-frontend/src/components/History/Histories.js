@@ -17,7 +17,7 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
 `;
 
 const Histories = ({ currentPage, histories, hasNextPage, onLoad }) => {
-  const loadFunc = useCallback(
+  const loadMore = useCallback(
     async page => {
       const { data } = await listHistories({ page });
       onLoad({ ...data, currentPage: page });
@@ -33,7 +33,7 @@ const Histories = ({ currentPage, histories, hasNextPage, onLoad }) => {
     <HistoryBlock>
       <InfiniteScrollBlock
         pageStart={currentPage}
-        loadMore={loadFunc}
+        loadMore={loadMore}
         hasMore={hasNextPage}
         loader={InfiniteScrollLoader}
       >

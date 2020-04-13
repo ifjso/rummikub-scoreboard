@@ -7,13 +7,13 @@ const HistoriesContainer = ({
   currentPage,
   histories,
   hasNextPage,
-  loadHistories
+  onLoad
 }) => (
   <Histories
     currentPage={currentPage}
     histories={histories}
     hasNextPage={hasNextPage}
-    onLoad={loadHistories}
+    onLoad={onLoad}
   />
 );
 
@@ -24,7 +24,7 @@ const mapStateToProps = ({ histories }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadHistories: ({ currentPage, histories, hasNextPage }) =>
+  onLoad: ({ currentPage, histories, hasNextPage }) =>
     dispatch(load({ currentPage, histories, hasNextPage }))
 });
 
