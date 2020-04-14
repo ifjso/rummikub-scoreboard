@@ -7,15 +7,15 @@ export const changeMemo = memo => ({ type: CHANGE_MEMO, memo });
 
 export const showError = () => ({ type: SHOW_ERROR });
 
-export const showModal = (selectedIndex, value) => ({
+export const showModal = (selectedUserIndex, value) => ({
   type: SHOW_MODAL,
-  selectedIndex,
+  selectedUserIndex,
   value
 });
 
 export const closeModal = () => ({ type: CLOSE_MODAL });
 const initialState = {
-  selectedIndex: 0,
+  selectedUserIndex: 0,
   value: 0,
   memo: '',
   error: false,
@@ -35,7 +35,7 @@ const form = (state = initialState, action) => {
     case SHOW_MODAL:
       return {
         ...state,
-        selectedIndex: action.selectedIndex,
+        selectedUserIndex: action.selectedUserIndex,
         value: action.value,
         isInputting: true
       };
