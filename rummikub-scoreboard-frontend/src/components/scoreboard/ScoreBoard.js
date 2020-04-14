@@ -40,10 +40,10 @@ const ScoreBoard = ({
   form,
   scores,
   onReadUsers,
-  onCalculate,
-  onSaveStart,
-  onSaveEnd,
-  onModalClose
+  onShowModal,
+  onStartSavingScore,
+  onEndSavingScore,
+  onCloseModal
 }) => {
   const memoInputRef = useRef(null);
 
@@ -59,8 +59,8 @@ const ScoreBoard = ({
   }, [isLoading, onReadUsers]);
 
   const onClick = useCallback(
-    async (index, value) => onCalculate(index, value),
-    [onCalculate]
+    async (index, value) => onShowModal(index, value),
+    [onShowModal]
   );
 
   const onSubmit = useCallback(
@@ -68,7 +68,7 @@ const ScoreBoard = ({
       const { selectedIndex, value } = form;
       const { user } = scores[selectedIndex];
 
-      onSaveStart(selectedIndex);
+      onStartSavingScore(selectedIndex);
 
       const { data } = await updateUser({
         owner: user.owner,
@@ -77,12 +77,12 @@ const ScoreBoard = ({
         memo
       });
 
-      onSaveEnd(selectedIndex, data);
+      onEndSavingScore(selectedIndex, data);
     },
-    [form, scores, onSaveEnd, onSaveStart]
+    [form, scores, onEndSavingScore, onStartSavingScore]
   );
 
-  const onModalMount = useCallback(() => memoInputRef.current.focus(), []);
+  const onMountModal = useCallback(() => memoInputRef.current.focus(), []);
 
   return isLoading ? (
     <Loader type="Hearts" color="#bf0303" />
@@ -109,8 +109,8 @@ const ScoreBoard = ({
       <InputModal
         open={form.isInputting}
         title="무슨 일이 있었는지 기록해 보아요."
-        onMount={onModalMount}
-        onClose={onModalClose}
+        onMount={onMountModal}
+        onClose={onCloseModal}
       >
         <MemoForm ref={memoInputRef} onSubmit={onSubmit} />
       </InputModal>

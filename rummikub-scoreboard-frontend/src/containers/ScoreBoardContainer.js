@@ -14,20 +14,20 @@ const ScoreBoardContainer = ({
   form,
   scores,
   onReadUsers,
-  onCalculate,
-  onSaveStart,
-  onSaveEnd,
-  onModalClose
+  onShowModal,
+  onStartSavingScore,
+  onEndSavingScore,
+  onCloseModal
 }) => (
   <ScoreBoard
     isLoading={isLoading}
     form={form}
     scores={scores}
     onReadUsers={onReadUsers}
-    onCalculate={onCalculate}
-    onSaveStart={onSaveStart}
-    onSaveEnd={onSaveEnd}
-    onModalClose={onModalClose}
+    onShowModal={onShowModal}
+    onStartSavingScore={onStartSavingScore}
+    onEndSavingScore={onEndSavingScore}
+    onCloseModal={onCloseModal}
   />
 );
 
@@ -39,11 +39,12 @@ const mapStateToProps = ({ scoreboard }) => ({
 
 const mapDispatchToProps = dispatch => ({
   onReadUsers: users => dispatch(readUsers(users)),
-  onCalculate: (selectedIndex, value) =>
+  onShowModal: (selectedIndex, value) =>
     dispatch(calculate(selectedIndex, value)),
-  onSaveStart: selectedIndex => dispatch(saveStart(selectedIndex)),
-  onSaveEnd: (selectedIndex, user) => dispatch(saveEnd(selectedIndex, user)),
-  onModalClose: () => dispatch(closeModal())
+  onStartSavingScore: selectedIndex => dispatch(saveStart(selectedIndex)),
+  onEndSavingScore: (selectedIndex, user) =>
+    dispatch(saveEnd(selectedIndex, user)),
+  onCloseModal: () => dispatch(closeModal())
 });
 
 export default connect(
