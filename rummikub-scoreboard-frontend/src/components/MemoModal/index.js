@@ -4,8 +4,8 @@ import InputModal from '../../commons/InputModal';
 import { updateUser } from '../../lib/api/users';
 import { getEmojiType } from '../../helpers/emoji';
 
-const MemoForm = ({
-  form,
+const MemoModal = ({
+  memoModal,
   scores,
   onChangeMemo,
   onShowError,
@@ -20,12 +20,12 @@ const MemoForm = ({
   ]);
 
   const onSubmit = useCallback(async () => {
-    if (!form.memo) {
+    if (!memoModal.memo) {
       onShowError();
       return;
     }
 
-    const { selectedUserIndex, value } = form;
+    const { selectedUserIndex, value } = memoModal;
     const { user } = scores[selectedUserIndex];
 
     onStartSavingScore(selectedUserIndex);
@@ -35,12 +35,12 @@ const MemoForm = ({
       owner: user.owner,
       score: user.score + value,
       emojiType: getEmojiType(value),
-      memo: form.memo
+      memo: memoModal.memo
     });
 
     onEndSavingScore(selectedUserIndex, data);
   }, [
-    form,
+    memoModal,
     scores,
     onShowError,
     onStartSavingScore,
@@ -52,19 +52,19 @@ const MemoForm = ({
 
   return (
     <InputModal
-      open={form.isInputting}
+      open={memoModal.isInputting}
       title="무슨 일이 있었는지 기록해 보아요."
       onMount={onMountModal}
       onClose={onHideModal}
     >
-      <Form error={form.error} onSubmit={onSubmit}>
-        <Form.Field error={form.error}>
+      <Form error={memoModal.error} onSubmit={onSubmit}>
+        <Form.Field error={memoModal.error}>
           <Input
             ref={inputRef}
             size="huge"
             fluid
             action={{
-              color: form.error ? 'google plus' : 'blue',
+              color: memoModal.error ? 'google plus' : 'blue',
               icon: 'write',
               size: 'huge'
             }}
@@ -77,4 +77,4 @@ const MemoForm = ({
   );
 };
 
-export default React.memo(MemoForm);
+export default React.memo(MemoModal);

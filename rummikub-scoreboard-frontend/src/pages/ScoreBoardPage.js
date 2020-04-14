@@ -1,11 +1,11 @@
 import React from 'react';
 import ScoreBoardContainer from '../containers/ScoreBoardContainer';
-import MemoFormContainer from '../containers/MemoFormContainer';
+import MemoModalContainer from '../containers/MemoModalContainer';
 
 const ScoreBoardPage = () => (
   <>
     <ScoreBoardContainer />
-    <MemoFormContainer />
+    <MemoModalContainer />
   </>
 );
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeMemo, showError, hideModal } from '../modules/form';
+import { changeMemo, showError, hideModal } from '../modules/memoModal';
 import { startSavingScore, endSavingScore } from '../modules/scoreboard';
-import MemoForm from '../components/MemoForm';
+import MemoModal from '../components/MemoModal';
 
 const MemoFormContainer = ({
-  form,
+  memoModal,
   scores,
   onChangeMemo,
   onShowError,
@@ -13,8 +13,8 @@ const MemoFormContainer = ({
   onEndSavingScore,
   onHideModal
 }) => (
-  <MemoForm
-    form={form}
+  <MemoModal
+    memoModal={memoModal}
     scores={scores}
     onChangeMemo={onChangeMemo}
     onShowError={onShowError}
@@ -24,8 +24,8 @@ const MemoFormContainer = ({
   />
 );
 
-const mapStateToProps = ({ form, scoreboard }) => ({
-  form,
+const mapStateToProps = ({ memoModal, scoreboard }) => ({
+  memoModal,
   scores: scoreboard.scores
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { readUsers } from '../modules/scoreboard';
-import { showModal } from '../modules/form';
+import { showModal } from '../modules/memoModal';
 import ScoreBoard from '../components/Scoreboard';
 
 const ScoreBoardContainer = ({

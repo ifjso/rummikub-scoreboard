@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import histories from './histories';
 import scoreboard from './scoreboard';
-import form from './form';
+import memoModal from './memoModal';
 
-const rootReducer = combineReducers({ histories, scoreboard, form });
+const rootReducer = combineReducers({ histories, scoreboard, memoModal });
 
 export default rootReducer;

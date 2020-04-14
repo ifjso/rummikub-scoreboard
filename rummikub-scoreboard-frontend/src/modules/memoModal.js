@@ -23,7 +23,7 @@ const initialState = {
   isInputting: false
 };
 
-const form = (state = initialState, action) => {
+const memoModal = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_MEMO:
       return {
@@ -47,4 +47,4 @@ const form = (state = initialState, action) => {
   }
 };
 
-export default form;
+export default memoModal;
