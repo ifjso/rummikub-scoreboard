@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
-import produce from 'immer';
 import Responsive from '../../commons/Responsive';
 import Loader from '../../commons/Loader';
 import InputModal from '../../commons/InputModal';
@@ -36,60 +35,40 @@ const StyledSpan = styled.span`
   color: white;
 `;
 
-const ScoreBoard = () => {
-  const isCancelled = useRef(false);
+const ScoreBoard = ({
+  isLoading,
+  form,
+  scores,
+  onReadUsers,
+  onCalculate,
+  onSaveStart,
+  onSaveEnd,
+  onModalClose
+}) => {
   const memoInputRef = useRef(null);
-  const [state, setState] = useState({
-    isLoading: true,
-    form: { selectedIndex: 0, value: 0, isInputting: false },
-    scores: [
-      { user: null, isLoading: false },
-      { user: null, isLoading: false }
-    ]
-  });
 
   useEffect(() => {
-    const readUsersFunc = async () => {
+    const readUsers = async () => {
       const users = await Promise.all([readUser(1), readUser(2)]);
-      if (!isCancelled.current) {
-        setState(
-          produce(baseState => {
-            baseState.isLoading = false;
-            baseState.scores[0].user = users[0].data;
-            baseState.scores[1].user = users[1].data;
-          })
-        );
-      }
+      onReadUsers([users[0].data, users[1].data]);
     };
 
-    readUsersFunc();
+    if (isLoading) {
+      readUsers();
+    }
+  }, [isLoading, onReadUsers]);
 
-    return () => {
-      isCancelled.current = true;
-    };
-  }, []);
-
-  const onClick = useCallback(async (index, value) => {
-    setState(
-      produce(baseState => {
-        baseState.form.selectedIndex = index;
-        baseState.form.value = value;
-        baseState.form.isInputting = true;
-      })
-    );
-  }, []);
+  const onClick = useCallback(
+    async (index, value) => onCalculate(index, value),
+    [onCalculate]
+  );
 
   const onSubmit = useCallback(
     async memo => {
-      const { selectedIndex, value } = state.form;
-      const { user } = state.scores[selectedIndex];
+      const { selectedIndex, value } = form;
+      const { user } = scores[selectedIndex];
 
-      setState(
-        produce(baseState => {
-          baseState.scores[selectedIndex].isLoading = true;
-          baseState.form.isInputting = false;
-        })
-      );
+      onSaveStart(selectedIndex);
 
       const { data } = await updateUser({
         owner: user.owner,
@@ -98,53 +77,37 @@ const ScoreBoard = () => {
         memo
       });
 
-      if (!isCancelled.current) {
-        setState(
-          produce(baseState => {
-            baseState.scores[selectedIndex].user = data;
-            baseState.scores[selectedIndex].isLoading = false;
-          })
-        );
-      }
+      onSaveEnd(selectedIndex, data);
     },
-    [state.form, state.scores]
+    [form, scores, onSaveEnd, onSaveStart]
   );
 
   const onModalMount = useCallback(() => memoInputRef.current.focus(), []);
-  const onModalClose = useCallback(
-    () =>
-      setState(
-        produce(baseState => {
-          baseState.form.isInputting = false;
-        })
-      ),
-    []
-  );
 
-  return state.isLoading ? (
+  return isLoading ? (
     <Loader type="Hearts" color="#bf0303" />
   ) : (
     <ScoreBoardBlock>
       <ScoreWrapper>
         <Score
           index={0}
-          user={state.scores[0].user}
+          user={scores[0].user}
           isReversed={false}
-          isLoading={state.scores[0].isLoading}
+          isLoading={scores[0].isLoading}
           onClick={onClick}
         />
         <StyledSpan>:</StyledSpan>
         <Score
           index={1}
-          user={state.scores[1].user}
+          user={scores[1].user}
           isReversed
-          isLoading={state.scores[1].isLoading}
+          isLoading={scores[1].isLoading}
           onClick={onClick}
         />
       </ScoreWrapper>
 
       <InputModal
-        open={state.form.isInputting}
+        open={form.isInputting}
         title="무슨 일이 있었는지 기록해 보아요."
         onMount={onModalMount}
         onClose={onModalClose}
