@@ -1,7 +1,7 @@
 const CHANGE_MEMO = 'form/CHANGE_MEMO';
 const SHOW_ERROR = 'form/SHOW_ERROR';
 const SHOW_MODAL = 'form/SHOW_MODAL';
-const CLOSE_MODAL = 'form/CLOSE_MODAL';
+const HIDE_MODAL = 'form/HIDE_MODAL';
 
 export const changeMemo = memo => ({ type: CHANGE_MEMO, memo });
 
@@ -13,7 +13,8 @@ export const showModal = (selectedUserIndex, value) => ({
   value
 });
 
-export const closeModal = () => ({ type: CLOSE_MODAL });
+export const hideModal = () => ({ type: HIDE_MODAL });
+
 const initialState = {
   selectedUserIndex: 0,
   value: 0,
@@ -39,7 +40,7 @@ const form = (state = initialState, action) => {
         value: action.value,
         isInputting: true
       };
-    case CLOSE_MODAL:
+    case HIDE_MODAL:
       return { ...state, memo: '', isInputting: false };
     default:
       return state;
