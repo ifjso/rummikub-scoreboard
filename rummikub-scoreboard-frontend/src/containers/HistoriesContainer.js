@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { load } from '../modules/histories';
-import Histories from '../components/History/Histories';
+import Histories from '../components/History';
 
 const HistoriesContainer = ({
   currentPage,

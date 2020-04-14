@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { readUsers } from '../modules/scoreboard';
 import { showModal } from '../modules/form';
-import ScoreBoard from '../components/Scoreboard/ScoreBoard';
+import ScoreBoard from '../components/Scoreboard';
 
 const ScoreBoardContainer = ({
   isLoading,

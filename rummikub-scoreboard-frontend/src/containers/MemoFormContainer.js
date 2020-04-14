@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { changeMemo, showError, hideModal } from '../modules/form';
 import { startSavingScore, endSavingScore } from '../modules/scoreboard';
-import MemoForm from '../components/MemoForm/MemoForm';
+import MemoForm from '../components/MemoForm';
 
 const MemoFormContainer = ({
   form,
