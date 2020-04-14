@@ -1,48 +1,18 @@
 import React from 'react';
-import styled from 'styled-components';
 import TimeAgo from 'react-timeago';
 import koreaStrings from 'react-timeago/lib/language-strings/ko';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
-import { getEmoji } from '../../helpers/emoji';
+import { getEmoji } from '../../../helpers/emoji';
+import {
+  HistoryBox,
+  TopHistoryBlock,
+  Content,
+  BottomHistoryBlock,
+  EmojiContent,
+  ContentBlock
+} from './style';
 
 const formatter = buildFormatter(koreaStrings);
-
-const HistoryBox = styled.div`
-  margin-bottom: 2vh;
-  font-size: 1.1em;
-`;
-
-const TopHistoryBlock = styled.div`
-  color: grey;
-`;
-
-const BottomHistoryBlock = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Content = styled.span`
-  flex: 1;
-  line-height: 1.5em;
-  font-size: ${({ size = 1 }) => `${size}em`};
-  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
-  color: ${({ color }) => (color ? ` ${color}` : '')};
-`;
-
-const EmojiContent = styled(Content)`
-  display: flex;
-  justify-content: center;
-  flex: 1;
-`;
-
-const ContentBlock = styled.div`
-  display: flex;
-  align-items: flex-end;
-  flex: 3;
-  flex-flow: column;
-  color: grey;
-`;
-
 const History = ({ history }) => (
   <HistoryBox value={history.value}>
     <TopHistoryBlock>

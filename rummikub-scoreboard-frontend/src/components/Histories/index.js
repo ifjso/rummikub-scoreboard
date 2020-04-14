@@ -1,20 +1,9 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useCallback, useEffect } from 'react';
-import styled from 'styled-components';
-import InfiniteScroll from 'react-infinite-scroller';
-import Responsive from '../../commons/Responsive';
 import Loader from '../../commons/Loader';
 import { listHistories } from '../../lib/api/histories';
 import History from './History';
-
-const HistoryBlock = styled(Responsive)`
-  width: 100vw;
-  padding: 5rem 2rem;
-`;
-
-const InfiniteScrollBlock = styled(InfiniteScroll)`
-  width: 100vw;
-`;
+import { HistoryBlock, InfiniteScrollBlock } from './style';
 
 const Histories = ({
   currentPage,

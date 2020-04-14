@@ -1,64 +1,16 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import Img from 'react-image';
-import Button from '../../commons/Button';
-import Shimmer from '../../commons/Shimmer';
-import Loader from '../../commons/Loader';
-
-const ScoreBlock = styled.div`
-  width: 26vw;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-
-  h1 {
-    margin: 0;
-    text-align: center;
-    font-size: 28vw;
-    line-height: 24vw;
-  }
-`;
-
-const UserWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: wrap;
-  padding-bottom: 5vh;
-`;
-
-const ProfileBlock = styled.div`
-  width: 100%;
-  display: flex;
-
-  ${({ isReversed }) =>
-    isReversed &&
-    css`
-      flex-direction: row-reverse;
-    `}
-`;
-
-const Picture = styled.div`
-  width: 40%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  > img {
-    width: 100%;
-    clip-path: circle(40% at center);
-  }
-`;
-
-const Nickname = styled.span`
-  margin: 0 auto;
-  padding: 1vw;
-  font-size: 6vw;
-  line-height: 2em;
-`;
+import Button from '../../../commons/Button';
+import Shimmer from '../../../commons/Shimmer';
+import Loader from '../../../commons/Loader';
+import {
+  Nickname,
+  Picture,
+  ProfileBlock,
+  ScoreBlock,
+  UserWrapper
+} from './style';
 
 const ButtonWithLoader = ({
   name,
