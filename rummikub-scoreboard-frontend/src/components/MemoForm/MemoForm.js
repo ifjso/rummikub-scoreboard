@@ -34,7 +34,7 @@ const MemoForm = React.forwardRef(({ onSubmit = i => i }, ref) => {
             size: 'huge'
           }}
           onChange={onChange}
-          maxLength={20}
+          maxLength={50}
         />
       </Form.Field>
     </Form>
