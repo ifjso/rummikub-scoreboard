@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import Responsive from '../../commons/Responsive';
@@ -16,7 +16,15 @@ const InfiniteScrollBlock = styled(InfiniteScroll)`
   width: 100vw;
 `;
 
-const Histories = ({ currentPage, histories, hasNextPage, onLoad }) => {
+const Histories = ({
+  currentPage,
+  histories,
+  hasNextPage,
+  onLoad,
+  onReset
+}) => {
+  useEffect(() => () => onReset(), [onReset]);
+
   const loadMore = useCallback(
     async page => {
       const { data } = await listHistories({ page });
