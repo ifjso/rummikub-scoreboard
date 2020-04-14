@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   readUsers,
-  calculate,
-  saveStart,
-  saveEnd,
+  showModal,
+  startSavingScore,
+  endSavingScore,
   closeModal
 } from '../modules/scoreboard';
 import ScoreBoard from '../components/Scoreboard/ScoreBoard';
@@ -40,10 +40,11 @@ const mapStateToProps = ({ scoreboard }) => ({
 const mapDispatchToProps = dispatch => ({
   onReadUsers: users => dispatch(readUsers(users)),
   onShowModal: (selectedIndex, value) =>
-    dispatch(calculate(selectedIndex, value)),
-  onStartSavingScore: selectedIndex => dispatch(saveStart(selectedIndex)),
+    dispatch(showModal(selectedIndex, value)),
+  onStartSavingScore: selectedIndex =>
+    dispatch(startSavingScore(selectedIndex)),
   onEndSavingScore: (selectedIndex, user) =>
-    dispatch(saveEnd(selectedIndex, user)),
+    dispatch(endSavingScore(selectedIndex, user)),
   onCloseModal: () => dispatch(closeModal())
 });
 

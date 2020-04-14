@@ -11,18 +11,18 @@ export const readUsers = users => ({
   users
 });
 
-export const calculate = (selectedIndex, value) => ({
+export const showModal = (selectedIndex, value) => ({
   type: SHOW_MODAL,
   selectedIndex,
   value
 });
 
-export const saveStart = selectedIndex => ({
+export const startSavingScore = selectedIndex => ({
   type: START_SAVING_SCORE,
   selectedIndex
 });
 
-export const saveEnd = (selectedIndex, user) => ({
+export const endSavingScore = (selectedIndex, user) => ({
   type: END_SAVING_SCORE,
   selectedIndex,
   user
