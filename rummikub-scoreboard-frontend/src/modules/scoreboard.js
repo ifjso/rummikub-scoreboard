@@ -9,14 +9,14 @@ export const readUsers = users => ({
   users
 });
 
-export const startSavingScore = selectedIndex => ({
+export const startSavingScore = selectedUserIndex => ({
   type: START_SAVING_SCORE,
-  selectedIndex
+  selectedUserIndex
 });
 
-export const endSavingScore = (selectedIndex, user) => ({
+export const endSavingScore = (selectedUserIndex, user) => ({
   type: END_SAVING_SCORE,
-  selectedIndex,
+  selectedUserIndex,
   user
 });
 
@@ -37,12 +37,12 @@ const scoreboard = (state = initialState, action) => {
       });
     case START_SAVING_SCORE:
       return produce(state, baseState => {
-        baseState.scores[action.selectedIndex].isLoading = true;
+        baseState.scores[action.selectedUserIndex].isLoading = true;
       });
     case END_SAVING_SCORE:
       return produce(state, baseState => {
-        baseState.scores[action.selectedIndex].user = action.user;
-        baseState.scores[action.selectedIndex].isLoading = false;
+        baseState.scores[action.selectedUserIndex].user = action.user;
+        baseState.scores[action.selectedUserIndex].isLoading = false;
       });
     default:
       return state;

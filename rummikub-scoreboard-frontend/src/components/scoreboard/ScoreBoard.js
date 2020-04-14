@@ -65,10 +65,10 @@ const ScoreBoard = ({
 
   const onSubmit = useCallback(
     async memo => {
-      const { selectedIndex, value } = form;
-      const { user } = scores[selectedIndex];
+      const { selectedUserIndex, value } = form;
+      const { user } = scores[selectedUserIndex];
 
-      onStartSavingScore(selectedIndex);
+      onStartSavingScore(selectedUserIndex);
 
       const { data } = await updateUser({
         owner: user.owner,
@@ -77,7 +77,7 @@ const ScoreBoard = ({
         memo
       });
 
-      onEndSavingScore(selectedIndex, data);
+      onEndSavingScore(selectedUserIndex, data);
     },
     [form, scores, onEndSavingScore, onStartSavingScore]
   );
