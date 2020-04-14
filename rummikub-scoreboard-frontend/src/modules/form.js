@@ -1,13 +1,19 @@
 const CHANGE_MEMO = 'form/CHANGE_MEMO';
 const SHOW_ERROR = 'form/SHOW_ERROR';
+const SHOW_MODAL = 'form/SHOW_MODAL';
 const CLOSE_MODAL = 'form/CLOSE_MODAL';
 
 export const changeMemo = memo => ({ type: CHANGE_MEMO, memo });
 
 export const showError = () => ({ type: SHOW_ERROR });
 
-export const closeModal = () => ({ type: CLOSE_MODAL });
+export const showModal = (selectedIndex, value) => ({
+  type: SHOW_MODAL,
+  selectedIndex,
+  value
+});
 
+export const closeModal = () => ({ type: CLOSE_MODAL });
 const initialState = {
   selectedIndex: 0,
   value: 0,
@@ -26,8 +32,15 @@ const form = (state = initialState, action) => {
       };
     case SHOW_ERROR:
       return { ...state, error: true };
+    case SHOW_MODAL:
+      return {
+        ...state,
+        selectedIndex: action.selectedIndex,
+        value: action.value,
+        isInputting: true
+      };
     case CLOSE_MODAL:
-      return { ...state, isInputting: false };
+      return { ...state, memo: '', isInputting: false };
     default:
       return state;
   }
