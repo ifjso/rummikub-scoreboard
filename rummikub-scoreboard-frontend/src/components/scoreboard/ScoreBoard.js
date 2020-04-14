@@ -1,12 +1,9 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Responsive from '../../commons/Responsive';
 import Loader from '../../commons/Loader';
-import InputModal from '../../commons/InputModal';
-import MemoForm from '../MemoForm/MemoForm';
 import Score from './Score';
-import { readUser, updateUser } from '../../lib/api/users';
-import { getEmojiType } from '../../helpers/emoji';
+import { readUser } from '../../lib/api/users';
 
 const ScoreBoardBlock = styled.div`
   width: 100vw;
@@ -35,18 +32,7 @@ const StyledSpan = styled.span`
   color: white;
 `;
 
-const ScoreBoard = ({
-  isLoading,
-  form,
-  scores,
-  onReadUsers,
-  onShowModal,
-  onStartSavingScore,
-  onEndSavingScore,
-  onCloseModal
-}) => {
-  const memoInputRef = useRef(null);
-
+const ScoreBoard = ({ isLoading, scores, onReadUsers, onShowModal }) => {
   useEffect(() => {
     const readUsers = async () => {
       const users = await Promise.all([readUser(1), readUser(2)]);
@@ -62,27 +48,6 @@ const ScoreBoard = ({
     async (index, value) => onShowModal(index, value),
     [onShowModal]
   );
-
-  const onSubmit = useCallback(
-    async memo => {
-      const { selectedUserIndex, value } = form;
-      const { user } = scores[selectedUserIndex];
-
-      onStartSavingScore(selectedUserIndex);
-
-      const { data } = await updateUser({
-        owner: user.owner,
-        score: user.score + value,
-        emojiType: getEmojiType(value),
-        memo
-      });
-
-      onEndSavingScore(selectedUserIndex, data);
-    },
-    [form, scores, onEndSavingScore, onStartSavingScore]
-  );
-
-  const onMountModal = useCallback(() => memoInputRef.current.focus(), []);
 
   return isLoading ? (
     <Loader type="Hearts" color="#bf0303" />
@@ -105,15 +70,6 @@ const ScoreBoard = ({
           onClick={onClick}
         />
       </ScoreWrapper>
-
-      <InputModal
-        open={form.isInputting}
-        title="무슨 일이 있었는지 기록해 보아요."
-        onMount={onMountModal}
-        onClose={onCloseModal}
-      >
-        <MemoForm ref={memoInputRef} onSubmit={onSubmit} />
-      </InputModal>
     </ScoreBoardBlock>
   );
 };
