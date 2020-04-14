@@ -41,7 +41,7 @@ const form = (state = initialState, action) => {
         isInputting: true
       };
     case HIDE_MODAL:
-      return { ...state, memo: '', isInputting: false };
+      return { ...state, memo: '', error: false, isInputting: false };
     default:
       return state;
   }
