@@ -1,34 +1,26 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { load, reset } from '../modules/histories';
 import Histories from '../components/Histories';
 
-const HistoriesContainer = ({
-  currentPage,
-  histories,
-  hasNextPage,
-  onLoad,
-  onReset
-}) => (
-  <Histories
-    currentPage={currentPage}
-    histories={histories}
-    hasNextPage={hasNextPage}
-    onLoad={onLoad}
-    onReset={onReset}
-  />
-);
+const HistoriesContainer = () => {
+  const { currentPage, histories, hasNextPage } = useSelector(
+    ({ histories: state }) => state
+  );
 
-const mapStateToProps = ({ histories }) => ({
-  currentPage: histories.currentPage,
-  histories: histories.histories,
-  hasNextPage: histories.hasNextPage
-});
+  const dispatch = useDispatch();
+  const onLoad = useCallback(state => dispatch(load(state)), [dispatch]);
+  const onReset = useCallback(() => dispatch(reset()), [dispatch]);
 
-const mapDispatchToProps = dispatch => ({
-  onLoad: ({ currentPage, histories, hasNextPage }) =>
-    dispatch(load({ currentPage, histories, hasNextPage })),
-  onReset: () => dispatch(reset())
-});
+  return (
+    <Histories
+      currentPage={currentPage}
+      histories={histories}
+      hasNextPage={hasNextPage}
+      onLoad={onLoad}
+      onReset={onReset}
+    />
+  );
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(HistoriesContainer);
+export default React.memo(HistoriesContainer);

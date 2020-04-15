@@ -1,35 +1,29 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { readUsers } from '../modules/scoreboard';
 import { showModal } from '../modules/memoModal';
 import ScoreBoard from '../components/Scoreboard';
 
-const ScoreBoardContainer = ({
-  isLoading,
-  scores,
-  onReadUsers,
-  onShowModal
-}) => (
-  <ScoreBoard
-    isLoading={isLoading}
-    scores={scores}
-    onReadUsers={onReadUsers}
-    onShowModal={onShowModal}
-  />
-);
+const ScoreBoardContainer = () => {
+  const { isLoading, scores } = useSelector(({ scoreboard }) => scoreboard);
 
-const mapStateToProps = ({ scoreboard }) => ({
-  isLoading: scoreboard.isLoading,
-  scores: scoreboard.scores
-});
+  const dispatch = useDispatch();
+  const onReadUsers = useCallback(users => dispatch(readUsers(users)), [
+    dispatch
+  ]);
+  const onShowModal = useCallback(
+    (selectedUserIndex, value) => dispatch(showModal(selectedUserIndex, value)),
+    [dispatch]
+  );
 
-const mapDispatchToProps = dispatch => ({
-  onReadUsers: users => dispatch(readUsers(users)),
-  onShowModal: (selectedUserIndex, value) =>
-    dispatch(showModal(selectedUserIndex, value))
-});
+  return (
+    <ScoreBoard
+      isLoading={isLoading}
+      scores={scores}
+      onReadUsers={onReadUsers}
+      onShowModal={onShowModal}
+    />
+  );
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ScoreBoardContainer);
+export default React.memo(ScoreBoardContainer);
