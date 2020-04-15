@@ -1,20 +1,14 @@
-import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { readUsers } from '../modules/scoreboard';
 import { showModal } from '../modules/memoModal';
 import ScoreBoard from '../components/Scoreboard';
+import useActions from '../lib/useActions';
 
 const ScoreBoardContainer = () => {
   const { isLoading, scores } = useSelector(({ scoreboard }) => scoreboard);
 
-  const dispatch = useDispatch();
-  const onReadUsers = useCallback(users => dispatch(readUsers(users)), [
-    dispatch
-  ]);
-  const onShowModal = useCallback(
-    (selectedUserIndex, value) => dispatch(showModal(selectedUserIndex, value)),
-    [dispatch]
-  );
+  const [onReadUsers, onShowModal] = useActions([readUsers, showModal], []);
 
   return (
     <ScoreBoard

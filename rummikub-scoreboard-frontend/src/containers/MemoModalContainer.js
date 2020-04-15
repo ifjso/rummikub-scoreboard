@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { changeMemo, showError, hideModal } from '../modules/memoModal';
 import { startSavingScore, endSavingScore } from '../modules/scoreboard';
 import MemoModal from '../components/MemoModal';
+import useActions from '../lib/useActions';
 
 const MemoFormContainer = () => {
   const { memoModal, scores } = useSelector(
@@ -12,21 +13,16 @@ const MemoFormContainer = () => {
     })
   );
 
-  const dispatch = useDispatch();
-  const onChangeMemo = useCallback(memo => dispatch(changeMemo(memo)), [
-    dispatch
-  ]);
-  const onShowError = useCallback(() => dispatch(showError()), [dispatch]);
-  const onStartSavingScore = useCallback(
-    selectedUserIndex => dispatch(startSavingScore(selectedUserIndex)),
-    [dispatch]
+  const [
+    onChangeMemo,
+    onShowError,
+    onStartSavingScore,
+    onEndSavingScore,
+    onHideModal
+  ] = useActions(
+    [changeMemo, showError, startSavingScore, endSavingScore, hideModal],
+    []
   );
-  const onEndSavingScore = useCallback(
-    (selectedUserIndex, user) =>
-      dispatch(endSavingScore(selectedUserIndex, user)),
-    [dispatch]
-  );
-  const onHideModal = useCallback(() => dispatch(hideModal()), [dispatch]);
 
   return (
     <MemoModal
