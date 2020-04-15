@@ -1,19 +1,20 @@
+import { createAction, handleActions } from 'redux-actions';
+
 const CHANGE_MEMO = 'form/CHANGE_MEMO';
 const SHOW_ERROR = 'form/SHOW_ERROR';
 const SHOW_MODAL = 'form/SHOW_MODAL';
 const HIDE_MODAL = 'form/HIDE_MODAL';
 
-export const changeMemo = memo => ({ type: CHANGE_MEMO, memo });
+export const changeMemo = createAction(CHANGE_MEMO, memo => ({ memo }));
 
-export const showError = () => ({ type: SHOW_ERROR });
+export const showError = createAction(SHOW_ERROR);
 
-export const showModal = (selectedUserIndex, value) => ({
-  type: SHOW_MODAL,
-  selectedUserIndex,
-  value
-});
+export const showModal = createAction(
+  SHOW_MODAL,
+  (selectedUserIndex, value) => ({ selectedUserIndex, value })
+);
 
-export const hideModal = () => ({ type: HIDE_MODAL });
+export const hideModal = createAction(HIDE_MODAL);
 
 const initialState = {
   selectedUserIndex: 0,
@@ -23,28 +24,28 @@ const initialState = {
   isInputting: false
 };
 
-const memoModal = (state = initialState, action) => {
-  switch (action.type) {
-    case CHANGE_MEMO:
-      return {
-        ...state,
-        memo: action.memo,
-        error: false
-      };
-    case SHOW_ERROR:
-      return { ...state, error: true };
-    case SHOW_MODAL:
-      return {
-        ...state,
-        selectedUserIndex: action.selectedUserIndex,
-        value: action.value,
-        isInputting: true
-      };
-    case HIDE_MODAL:
-      return { ...state, memo: '', error: false, isInputting: false };
-    default:
-      return state;
-  }
-};
+const memoModal = handleActions(
+  {
+    [CHANGE_MEMO]: (state, { payload: { memo } }) => ({
+      ...state,
+      memo,
+      error: false
+    }),
+    [SHOW_ERROR]: state => ({ ...state, error: true }),
+    [SHOW_MODAL]: (state, { payload: { selectedUserIndex, value } }) => ({
+      ...state,
+      selectedUserIndex,
+      value,
+      isInputting: true
+    }),
+    [HIDE_MODAL]: state => ({
+      ...state,
+      memo: '',
+      error: false,
+      isInputting: false
+    })
+  },
+  initialState
+);
 
 export default memoModal;
