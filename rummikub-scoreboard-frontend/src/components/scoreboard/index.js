@@ -5,10 +5,8 @@ import { ScoreBoardBlock, ScoreWrapper, StyledSpan } from './style';
 
 const ScoreBoard = ({ isLoading, scores, onReadUsers, onShowModal }) => {
   useEffect(() => {
-    if (isLoading) {
-      onReadUsers();
-    }
-  }, [isLoading, onReadUsers]);
+    onReadUsers();
+  }, [onReadUsers]);
 
   const onClick = useCallback(
     async (index, value) => onShowModal(index, value),

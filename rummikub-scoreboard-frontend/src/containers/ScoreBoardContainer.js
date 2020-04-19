@@ -6,7 +6,12 @@ import ScoreBoard from '../components/Scoreboard';
 import useActions from '../lib/useActions';
 
 const ScoreBoardContainer = () => {
-  const { isLoading, scores } = useSelector(({ scoreboard }) => scoreboard);
+  const { scores, isLoading = true } = useSelector(
+    ({ scoreboard, loading }) => ({
+      scores: scoreboard,
+      isLoading: loading['scoreboard/READ_USERS']
+    })
+  );
 
   const [onReadUsers, onShowModal] = useActions([readUsers, showModal], []);
 

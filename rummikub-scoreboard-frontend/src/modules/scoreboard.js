@@ -1,6 +1,7 @@
 import produce from 'immer';
 import { createAction, handleActions } from 'redux-actions';
-import { all, call, put, takeLatest, take } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { startLoading, finishLoading } from './loading';
 import { readUser } from '../lib/api/users';
 
 const READ_USERS = 'scoreboard/READ_USERS';
@@ -10,7 +11,7 @@ const READ_USERS_FAILURE = 'scoreboard/READ_USERS_FAILURE';
 const START_SAVING_SCORE = 'scoreboard/START_SAVING_SCORE';
 const END_SAVING_SCORE = 'scoreboard/END_SAVING_SCORE';
 
-export const readUsers = createAction(READ_USERS, users => ({ users }));
+export const readUsers = createAction(READ_USERS);
 
 export const startSavingScore = createAction(
   START_SAVING_SCORE,
@@ -22,8 +23,9 @@ export const endSavingScore = createAction(
   (selectedUserIndex, user) => ({ selectedUserIndex, user })
 );
 
-function* readUsersSaga(action) {
-  // yield put(start);
+function* readUsersSaga() {
+  yield put(startLoading(READ_USERS));
+
   try {
     const users = yield all([call(readUser, 1), call(readUser, 2)]);
     yield put({
@@ -33,36 +35,33 @@ function* readUsersSaga(action) {
   } catch (e) {
     yield put({ type: READ_USERS_FAILURE, payload: e, error: true });
   }
-  // yield put(end)
+
+  yield put(finishLoading(READ_USERS));
 }
 
 export function* scoreboardSaga() {
   yield takeLatest(READ_USERS, readUsersSaga);
 }
 
-const initialState = {
-  isLoading: true,
-  scores: [
-    { user: null, isLoading: false },
-    { user: null, isLoading: false }
-  ]
-};
+const initialState = [
+  { user: null, isLoading: false },
+  { user: null, isLoading: false }
+];
 
 const scoreboard = handleActions(
   {
     [READ_USERS_SUCCESS]: (state, { payload: users }) =>
       produce(state, baseState => {
-        baseState.isLoading = false;
-        [baseState.scores[0].user, baseState.scores[1].user] = users;
+        [baseState[0].user, baseState[1].user] = users;
       }),
     [START_SAVING_SCORE]: (state, { payload: { selectedUserIndex } }) =>
       produce(state, baseState => {
-        baseState.scores[selectedUserIndex].isLoading = true;
+        baseState[selectedUserIndex].isLoading = true;
       }),
     [END_SAVING_SCORE]: (state, { payload: { selectedUserIndex, user } }) =>
       produce(state, baseState => {
-        baseState.scores[selectedUserIndex].user = user;
-        baseState.scores[selectedUserIndex].isLoading = false;
+        baseState[selectedUserIndex].user = user;
+        baseState[selectedUserIndex].isLoading = false;
       })
   },
   initialState
