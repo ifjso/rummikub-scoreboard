@@ -1,16 +1,13 @@
 import React, { useCallback, useRef } from 'react';
 import { Form, Input } from 'semantic-ui-react';
 import InputModal from '../../commons/InputModal';
-import { updateUser } from '../../lib/api/users';
-import { getEmojiType } from '../../helpers/emoji';
 
 const MemoModal = ({
   memoModal,
   scores,
   onChangeMemo,
   onShowError,
-  onStartSavingScore,
-  onEndSavingScore,
+  onSaveScore,
   onHideModal
 }) => {
   const inputRef = useRef(null);
@@ -19,7 +16,7 @@ const MemoModal = ({
     onChangeMemo
   ]);
 
-  const onSubmit = useCallback(async () => {
+  const onSubmit = useCallback(() => {
     if (!memoModal.memo) {
       onShowError();
       return;
@@ -28,25 +25,9 @@ const MemoModal = ({
     const { selectedUserIndex, value } = memoModal;
     const { user } = scores[selectedUserIndex];
 
-    onStartSavingScore(selectedUserIndex);
+    onSaveScore({ selectedUserIndex, user, value, memo: memoModal.memo });
     onHideModal();
-
-    const { data } = await updateUser({
-      owner: user.owner,
-      score: user.score + value,
-      emojiType: getEmojiType(value),
-      memo: memoModal.memo
-    });
-
-    onEndSavingScore(selectedUserIndex, data);
-  }, [
-    memoModal,
-    scores,
-    onShowError,
-    onStartSavingScore,
-    onHideModal,
-    onEndSavingScore
-  ]);
+  }, [memoModal, scores, onSaveScore, onHideModal, onShowError]);
 
   const onMountModal = useCallback(() => inputRef.current.focus(), []);
 

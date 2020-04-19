@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { createAction, handleActions } from 'redux-actions';
-import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { startLoading, finishLoading } from './loading';
 import { readUser, updateUser } from '../lib/api/users';
 import { getEmojiType } from '../helpers/emoji';
@@ -61,7 +61,7 @@ function* saveScoreSaga(action) {
 
 export function* scoreboardSaga() {
   yield takeLatest(READ_USERS, readUsersSaga);
-  yield takeLatest(SAVE_SCORE, saveScoreSaga);
+  yield takeEvery(SAVE_SCORE, saveScoreSaga);
 }
 
 const initialState = [
@@ -81,7 +81,7 @@ const scoreboard = handleActions(
       }),
     [SAVE_SCORE_SUCCESS]: (state, { payload: { selectedUserIndex, user } }) =>
       produce(state, baseState => {
-        baseState[selectedUserIndex] = user;
+        baseState[selectedUserIndex].user = user;
         baseState[selectedUserIndex].isLoading = false;
       })
   },
