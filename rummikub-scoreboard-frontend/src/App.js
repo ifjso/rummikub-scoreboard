@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import TopMenu from './components/Menu';
 import ScoreBoardPage from './pages/ScoreBoardPage';
 import HistoriesPage from './pages/HistoriesPage';
-import './App.css';
 
 const App = () => (
   <>
