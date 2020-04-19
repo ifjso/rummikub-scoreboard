@@ -1,22 +1,23 @@
 {
   "files": {
     "main.css": "/rummikub-scoreboard/static/css/main.d6f95b44.chunk.css",
-    "main.js": "/rummikub-scoreboard/static/js/main.bd60a6f5.chunk.js",
-    "main.js.map": "/rummikub-scoreboard/static/js/main.bd60a6f5.chunk.js.map",
+    "main.js": "/rummikub-scoreboard/static/js/main.5c7d2130.chunk.js",
+    "main.js.map": "/rummikub-scoreboard/static/js/main.5c7d2130.chunk.js.map",
     "runtime-main.js": "/rummikub-scoreboard/static/js/runtime-main.6d63a623.js",
     "runtime-main.js.map": "/rummikub-scoreboard/static/js/runtime-main.6d63a623.js.map",
-    "static/js/2.5c07acf4.chunk.js": "/rummikub-scoreboard/static/js/2.5c07acf4.chunk.js",
-    "static/js/2.5c07acf4.chunk.js.map": "/rummikub-scoreboard/static/js/2.5c07acf4.chunk.js.map",
+    "static/js/2.5cd165c0.chunk.js": "/rummikub-scoreboard/static/js/2.5cd165c0.chunk.js",
+    "static/js/2.5cd165c0.chunk.js.map": "/rummikub-scoreboard/static/js/2.5cd165c0.chunk.js.map",
     "index.html": "/rummikub-scoreboard/index.html",
-    "precache-manifest.8e2e7ccfbcc376cf4b052da86e62b8cd.js": "/rummikub-scoreboard/precache-manifest.8e2e7ccfbcc376cf4b052da86e62b8cd.js",
+    "precache-manifest.9ceb33f9a001c55aa0651e6e4bc46a92.js": "/rummikub-scoreboard/precache-manifest.9ceb33f9a001c55aa0651e6e4bc46a92.js",
     "service-worker.js": "/rummikub-scoreboard/service-worker.js",
     "static/css/main.d6f95b44.chunk.css.map": "/rummikub-scoreboard/static/css/main.d6f95b44.chunk.css.map",
-    "static/js/2.5c07acf4.chunk.js.LICENSE.txt": "/rummikub-scoreboard/static/js/2.5c07acf4.chunk.js.LICENSE.txt"
+    "static/js/2.5cd165c0.chunk.js.LICENSE.txt": "/rummikub-scoreboard/static/js/2.5cd165c0.chunk.js.LICENSE.txt",
+    "static/media/logo.png": "/rummikub-scoreboard/static/media/logo.381fb2b8.png"
   },
   "entrypoints": [
     "static/js/runtime-main.6d63a623.js",
-    "static/js/2.5c07acf4.chunk.js",
+    "static/js/2.5cd165c0.chunk.js",
     "static/css/main.d6f95b44.chunk.css",
-    "static/js/main.bd60a6f5.chunk.js"
+    "static/js/main.5c7d2130.chunk.js"
   ]
 }
