@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import Loader from '../../commons/Loader';
 import Score from './Score';
 import { ScoreBoardBlock, ScoreWrapper, StyledSpan } from './style';
@@ -7,11 +7,6 @@ const ScoreBoard = ({ isLoading, scores, onReadUsers, onShowModal }) => {
   useEffect(() => {
     onReadUsers();
   }, [onReadUsers]);
-
-  const onClick = useCallback(
-    async (index, value) => onShowModal(index, value),
-    [onShowModal]
-  );
 
   return isLoading ? (
     <Loader type="Hearts" color="#bf0303" />
@@ -23,7 +18,7 @@ const ScoreBoard = ({ isLoading, scores, onReadUsers, onShowModal }) => {
           user={scores[0].user}
           isReversed={false}
           isLoading={scores[0].isLoading}
-          onClick={onClick}
+          onClick={onShowModal}
         />
         <StyledSpan>:</StyledSpan>
         <Score
@@ -31,7 +26,7 @@ const ScoreBoard = ({ isLoading, scores, onReadUsers, onShowModal }) => {
           user={scores[1].user}
           isReversed
           isLoading={scores[1].isLoading}
-          onClick={onClick}
+          onClick={onShowModal}
         />
       </ScoreWrapper>
     </ScoreBoardBlock>
