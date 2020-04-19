@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/rummikub-scoreboard/static/css/main.d6f95b44.chunk.css",
-    "main.js": "/rummikub-scoreboard/static/js/main.5c7d2130.chunk.js",
-    "main.js.map": "/rummikub-scoreboard/static/js/main.5c7d2130.chunk.js.map",
+    "main.css": "/rummikub-scoreboard/static/css/main.c11caca2.chunk.css",
+    "main.js": "/rummikub-scoreboard/static/js/main.03d19399.chunk.js",
+    "main.js.map": "/rummikub-scoreboard/static/js/main.03d19399.chunk.js.map",
     "runtime-main.js": "/rummikub-scoreboard/static/js/runtime-main.6d63a623.js",
     "runtime-main.js.map": "/rummikub-scoreboard/static/js/runtime-main.6d63a623.js.map",
-    "static/js/2.5cd165c0.chunk.js": "/rummikub-scoreboard/static/js/2.5cd165c0.chunk.js",
-    "static/js/2.5cd165c0.chunk.js.map": "/rummikub-scoreboard/static/js/2.5cd165c0.chunk.js.map",
+    "static/js/2.dace29fb.chunk.js": "/rummikub-scoreboard/static/js/2.dace29fb.chunk.js",
+    "static/js/2.dace29fb.chunk.js.map": "/rummikub-scoreboard/static/js/2.dace29fb.chunk.js.map",
     "index.html": "/rummikub-scoreboard/index.html",
-    "precache-manifest.9ceb33f9a001c55aa0651e6e4bc46a92.js": "/rummikub-scoreboard/precache-manifest.9ceb33f9a001c55aa0651e6e4bc46a92.js",
+    "precache-manifest.871e4383e85d76f5d771c3f6e064be91.js": "/rummikub-scoreboard/precache-manifest.871e4383e85d76f5d771c3f6e064be91.js",
     "service-worker.js": "/rummikub-scoreboard/service-worker.js",
-    "static/css/main.d6f95b44.chunk.css.map": "/rummikub-scoreboard/static/css/main.d6f95b44.chunk.css.map",
-    "static/js/2.5cd165c0.chunk.js.LICENSE.txt": "/rummikub-scoreboard/static/js/2.5cd165c0.chunk.js.LICENSE.txt",
-    "static/media/logo.png": "/rummikub-scoreboard/static/media/logo.381fb2b8.png"
+    "static/css/main.c11caca2.chunk.css.map": "/rummikub-scoreboard/static/css/main.c11caca2.chunk.css.map",
+    "static/js/2.dace29fb.chunk.js.LICENSE.txt": "/rummikub-scoreboard/static/js/2.dace29fb.chunk.js.LICENSE.txt",
+    "static/media/histories_inactive.png": "/rummikub-scoreboard/static/media/histories_inactive.38825927.png",
+    "static/media/scoreboard_inactive.png": "/rummikub-scoreboard/static/media/scoreboard_inactive.3334f4a6.png"
   },
   "entrypoints": [
     "static/js/runtime-main.6d63a623.js",
-    "static/js/2.5cd165c0.chunk.js",
-    "static/css/main.d6f95b44.chunk.css",
-    "static/js/main.5c7d2130.chunk.js"
+    "static/js/2.dace29fb.chunk.js",
+    "static/css/main.c11caca2.chunk.css",
+    "static/js/main.03d19399.chunk.js"
   ]
 }
