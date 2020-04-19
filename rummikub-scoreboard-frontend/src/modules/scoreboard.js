@@ -2,25 +2,27 @@ import produce from 'immer';
 import { createAction, handleActions } from 'redux-actions';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { startLoading, finishLoading } from './loading';
-import { readUser } from '../lib/api/users';
+import { readUser, updateUser } from '../lib/api/users';
+import { getEmojiType } from '../helpers/emoji';
 
 const READ_USERS = 'scoreboard/READ_USERS';
 const READ_USERS_SUCCESS = 'scoreboard/READ_USERS_SUCCESS';
 const READ_USERS_FAILURE = 'scoreboard/READ_USERS_FAILURE';
 
-const START_SAVING_SCORE = 'scoreboard/START_SAVING_SCORE';
-const END_SAVING_SCORE = 'scoreboard/END_SAVING_SCORE';
+const SAVE_SCORE = 'scoreboard/SAVE_SCORE';
+const SAVE_SCORE_SUCCESS = 'scoreboard/SAVE_SCORE_SUCCESS';
+const SAVE_SCORE_FAILURE = 'scoreboard/SAVE_SCORE_FAILURE';
 
 export const readUsers = createAction(READ_USERS);
 
-export const startSavingScore = createAction(
-  START_SAVING_SCORE,
-  selectedUserIndex => ({ selectedUserIndex })
-);
-
-export const endSavingScore = createAction(
-  END_SAVING_SCORE,
-  (selectedUserIndex, user) => ({ selectedUserIndex, user })
+export const saveScore = createAction(
+  SAVE_SCORE,
+  ({ selectedUserIndex, user, value, memo }) => ({
+    selectedUserIndex,
+    user,
+    value,
+    memo
+  })
 );
 
 function* readUsersSaga() {
@@ -39,29 +41,39 @@ function* readUsersSaga() {
   yield put(finishLoading(READ_USERS));
 }
 
-export function* scoreboardSaga() {
-  yield takeLatest(READ_USERS, readUsersSaga);
+function* saveScoreSaga(action) {
+  yield put(startLoading(SAVE_SCORE));
+  try {
+    const { selectedUserIndex, user, value, memo } = action.payload;
+    const { data } = yield call(updateUser, {
+      owner: user.owner,
+      score: user.score + value,
+      emojiType: getEmojiType(value),
+      memo
+    });
+    yield put({
+      type: SAVE_SCORE_SUCCESS,
+      payload: { selectedUserIndex, user: data }
+    });
+  } catch (e) {
+    yield put({ type: SAVE_SCORE_FAILURE, payload: e, error: true });
+  }
+  yield put(finishLoading(SAVE_SCORE));
 }
 
-const initialState = [
-  { user: null, isLoading: false },
-  { user: null, isLoading: false }
-];
+export function* scoreboardSaga() {
+  yield takeLatest(READ_USERS, readUsersSaga);
+  yield takeLatest(SAVE_SCORE, saveScoreSaga);
+}
+
+const initialState = [];
 
 const scoreboard = handleActions(
   {
-    [READ_USERS_SUCCESS]: (state, { payload: users }) =>
+    [READ_USERS_SUCCESS]: (state, { payload: users }) => users,
+    [SAVE_SCORE_SUCCESS]: (state, { payload: { selectedUserIndex, user } }) =>
       produce(state, baseState => {
-        [baseState[0].user, baseState[1].user] = users;
-      }),
-    [START_SAVING_SCORE]: (state, { payload: { selectedUserIndex } }) =>
-      produce(state, baseState => {
-        baseState[selectedUserIndex].isLoading = true;
-      }),
-    [END_SAVING_SCORE]: (state, { payload: { selectedUserIndex, user } }) =>
-      produce(state, baseState => {
-        baseState[selectedUserIndex].user = user;
-        baseState[selectedUserIndex].isLoading = false;
+        baseState[selectedUserIndex] = user;
       })
   },
   initialState
