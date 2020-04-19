@@ -6,16 +6,14 @@ import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import { createLogger } from 'redux-logger';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import rootReducer, { rootSaga } from './modules';
 
-const logger = createLogger();
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(logger, sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 sagaMiddleware.run(rootSaga);
