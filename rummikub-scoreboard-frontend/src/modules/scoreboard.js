@@ -42,7 +42,6 @@ function* readUsersSaga() {
 }
 
 function* saveScoreSaga(action) {
-  yield put(startLoading(SAVE_SCORE));
   try {
     const { selectedUserIndex, user, value, memo } = action.payload;
     const { data } = yield call(updateUser, {
@@ -58,7 +57,6 @@ function* saveScoreSaga(action) {
   } catch (e) {
     yield put({ type: SAVE_SCORE_FAILURE, payload: e, error: true });
   }
-  yield put(finishLoading(SAVE_SCORE));
 }
 
 export function* scoreboardSaga() {
@@ -66,14 +64,25 @@ export function* scoreboardSaga() {
   yield takeLatest(SAVE_SCORE, saveScoreSaga);
 }
 
-const initialState = [];
+const initialState = [
+  { user: null, isLoading: false },
+  { user: null, isLoading: false }
+];
 
 const scoreboard = handleActions(
   {
-    [READ_USERS_SUCCESS]: (state, { payload: users }) => users,
+    [READ_USERS_SUCCESS]: (state, { payload: users }) =>
+      produce(state, baseState => {
+        [baseState[0].user, baseState[1].user] = users;
+      }),
+    [SAVE_SCORE]: (state, { payload: { selectedUserIndex } }) =>
+      produce(state, baseState => {
+        baseState[selectedUserIndex].isLoading = true;
+      }),
     [SAVE_SCORE_SUCCESS]: (state, { payload: { selectedUserIndex, user } }) =>
       produce(state, baseState => {
         baseState[selectedUserIndex] = user;
+        baseState[selectedUserIndex].isLoading = false;
       })
   },
   initialState
