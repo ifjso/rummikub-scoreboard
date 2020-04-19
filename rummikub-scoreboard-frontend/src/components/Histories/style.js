@@ -4,7 +4,7 @@ import Responsive from '../../commons/Responsive';
 
 export const HistoryBlock = styled(Responsive)`
   width: 100vw;
-  padding: 5rem 2rem;
+  padding: 6rem 2rem 2rem 2rem;
 `;
 
 export const InfiniteScrollBlock = styled(InfiniteScroll)`
