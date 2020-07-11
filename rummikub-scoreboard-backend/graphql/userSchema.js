@@ -1,28 +1,28 @@
-const { makeExcutableSchema } = require('graphql-tools');
-const createError = require('http-errors');
+const { makeExecutableSchema } = require('graphql-tools');
+const { ApolloError } = require('apollo-server-express');
 const User = require('../models/user');
 
 const typeDefs = `
   type User {
-    owner: String!
+    owner: Int!
     name: String!
     picture: String
     score: Int!
-    createdAt: Long!
-    updatedAt: Long!
+    createdAt: Float!
+    updatedAt: Float!
   }
 
   type Query {
-    user(owner: String!): User
+    user(owner: Int!): User
   }
 `;
 
 const resolvers = {
   Query: {
     user: async (_, { owner }) => {
-      const user = await User.find({ owner });
+      const user = await User.findOne({ owner });
       if (!user) {
-        throw new createError.NotFound(`${owner} not found.`);
+        throw new ApolloError(`${owner} not found.`, 404);
       }
 
       return user;
@@ -30,7 +30,7 @@ const resolvers = {
   }
 };
 
-module.exports = makeExcutableSchema({
+module.exports = makeExecutableSchema({
   typeDefs,
   resolvers
 });
