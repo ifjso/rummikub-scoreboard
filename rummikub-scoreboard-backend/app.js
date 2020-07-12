@@ -22,7 +22,7 @@ mongoose.connection.once('open', () =>
 
 const server = new ApolloServer({
   schema,
-  playground: true
+  playground: process.env.ENV !== 'production'
 });
 
 const app = express();
