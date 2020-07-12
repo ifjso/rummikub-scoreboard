@@ -5,7 +5,7 @@ const { ResourceNotFound } = require('../errors');
 
 const typeDefs = `
   type User {
-    owner: Int!
+    owner: ID!
     name: String!
     picture: String
     score: Int!
@@ -14,7 +14,7 @@ const typeDefs = `
   }
 
   type Query {
-    user(owner: Int!): User
+    user(owner: ID!): User
   }
 
   input UserInput {
@@ -24,7 +24,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    updateUser(owner: Int!, userInput: UserInput!): User
+    updateUser(owner: ID!, userInput: UserInput!): User
   }
 `;
 

@@ -4,6 +4,7 @@ const User = require('../models/user');
 
 const typeDefs = `
   type History {
+    _id: ID!
     owner: Int!
     value: Int!
     emojiType: Int!
