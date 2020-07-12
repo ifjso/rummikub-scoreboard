@@ -4,8 +4,6 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const historesRouter = require('./api/histories');
-const usersRouter = require('./api/users');
 const schema = require('./graphql/schema');
 
 dotenv.config();
@@ -31,18 +29,7 @@ const app = express();
 
 app.use(cors());
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use('/static', express.static(`${__dirname}/public`));
-
-const { API_CONTEXT } = process.env;
-app.use(`${API_CONTEXT}/histories`, historesRouter);
-app.use(`${API_CONTEXT}/users`, usersRouter);
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json(err);
-});
 
 server.applyMiddleware({ app });
 

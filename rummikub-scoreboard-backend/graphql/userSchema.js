@@ -1,7 +1,7 @@
 const { makeExecutableSchema } = require('graphql-tools');
-const { ApolloError } = require('apollo-server-express');
 const User = require('../models/user');
 const History = require('../models/history');
+const { ResourceNotFound } = require('../errors');
 
 const typeDefs = `
   type User {
@@ -33,7 +33,7 @@ const resolvers = {
     user: async (_, { owner }) => {
       const user = await User.findOne({ owner });
       if (!user) {
-        throw new ApolloError(`${owner} not found.`, 404);
+        throw new ResourceNotFound(`${owner} not found.`);
       }
 
       return user;
@@ -47,7 +47,7 @@ const resolvers = {
 
       const user = await User.findOneAndUpdate({ owner }, { score, updatedAt });
       if (!user) {
-        throw new ApolloError(`${owner} not found.`, 404);
+        throw new ResourceNotFound(`${owner} not found.`);
       }
 
       await History.create({
